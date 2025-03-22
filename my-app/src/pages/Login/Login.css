@@ -1,0 +1,220 @@
+/* Estilos para a página de login */
+.container {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+  margin: 20px 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blog-icon {
+  background-color: #f2f7ff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 24px;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 24px;
+  font-size: 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+  position: relative;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="tel"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #3a7bc8;
+}
+
+button:disabled {
+  background-color: #a0c3e8;
+  cursor: not-allowed;
+}
+
+.signup-link {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.signup-link a {
+  color: #4a90e2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #d32f2f;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.input-error {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.forgot-password a {
+  font-size: 14px;
+  color: #666;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  color: #4a90e2;
+  text-decoration: underline;
+}
+
+/* Estilos para a tela de sucesso */
+.success-container {
+  text-align: center;
+}
+
+.success-icon {
+  background-color: #e6f7ed;
+  color: #28a745;
+  font-size: 32px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.success-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.primary-button,
+.secondary-button {
+  flex: 1;
+  margin: 0 5px;
+  padding: 12px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.primary-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+}
+
+.secondary-button {
+  background-color: white;
+  color: #4a90e2;
+  border: 1px solid #4a90e2;
+}
+
+.primary-button:hover {
+  background-color: #3a7bc8;
+}
+
+.secondary-button:hover {
+  background-color: #f2f7ff;
+}
+
+.user-info {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .container {
+    padding: 20px;
+  }
+  
+  .success-buttons {
+    flex-direction: column;
+  }
+  
+  .primary-button,
+  .secondary-button {
+    margin: 5px 0;
+  }
+} 
