@@ -1,5 +1,6 @@
+/* Login Container - reutilizando boa parte do estilo do cadastro */
 .container {
-  max-width: 450px;
+  max-width: 400px; /* Um pouco menor que o de cadastro */
   width: 100%;
   margin: 20px auto;
   padding: 30px;
@@ -28,6 +29,38 @@
   font-weight: 600;
 }
 
+.blog-icon {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 3rem;
+  color: var(--primary-color);
+}
+
+.blog-icon span {
+  display: inline-block;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(82, 113, 255, 0.3);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Formulário */
 form {
   display: flex;
   flex-direction: column;
@@ -82,130 +115,50 @@ button:hover {
   box-shadow: 0 5px 15px rgba(82, 113, 255, 0.4);
 }
 
-.login-link {
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Link para cadastro */
+.signup-link {
   margin-top: 20px;
   text-align: center;
   font-size: 0.9rem;
 }
 
-.login-link a {
+.signup-link a {
   color: var(--primary-color);
   text-decoration: none;
   font-weight: 600;
 }
 
-.login-link a:hover {
+.signup-link a:hover {
   text-decoration: underline;
 }
 
-.blog-icon {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 3rem;
-  color: var(--primary-color);
-}
-
-.blog-icon span {
-  display: inline-block;
-  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-  color: white;
-  width: 80px;
-  height: 80px;
-  line-height: 80px;
-  border-radius: 50%;
-  box-shadow: 0 5px 15px rgba(82, 113, 255, 0.3);
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-textarea {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  box-sizing: border-box;
-  font-family: inherit;
-  resize: vertical;
-  min-height: 100px;
-}
-
-textarea:focus {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(82, 113, 255, 0.2);
-  outline: none;
-}
-
-.bio-counter {
-  font-size: 0.75rem;
-  color: #777;
+/* Link para recuperação de senha */
+.forgot-password {
   text-align: right;
-  margin-top: 5px;
-  font-style: italic;
-}
-
-.input-counter {
-  font-size: 0.75rem;
-  color: #777;
-  text-align: right;
-  margin-top: 5px;
-}
-
-.password-requirements {
-  margin-top: 8px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  padding: 12px 15px;
+  margin-top: -10px;
+  margin-bottom: 15px;
   font-size: 0.85rem;
 }
 
-.password-requirements p {
-  margin-bottom: 8px;
-  color: #666;
-  font-weight: 500;
-}
-
-.password-requirements ul {
-  list-style: none;
-  padding-left: 5px;
-}
-
-.password-requirements li {
-  margin-bottom: 4px;
+.forgot-password a {
   color: #888;
-  position: relative;
-  padding-left: 20px;
-  transition: all 0.3s ease;
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
-.password-requirements li::before {
-  content: "✗";
-  position: absolute;
-  left: 0;
-  color: #ccc;
+.forgot-password a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
 }
 
-.password-requirements li.fulfilled {
-  color: #4CAF50;
-}
-
-.password-requirements li.fulfilled::before {
-  content: "✓";
-  color: #4CAF50;
-}
-
+/* Estilos para erros */
 .input-error {
   color: var(--accent-color);
   font-size: 0.8rem;
@@ -243,13 +196,7 @@ textarea:focus {
   }
 }
 
-button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-  transform: none !important;
-  box-shadow: none !important;
-}
-
+/* Tela de sucesso */
 .success-container {
   text-align: center;
 }
@@ -269,8 +216,11 @@ button:disabled {
 
 .success-container p {
   color: #666;
-  margin-bottom: 30px;
   line-height: 1.6;
+}
+
+.user-info {
+  margin-bottom: 30px;
 }
 
 .success-container button {
@@ -318,4 +268,8 @@ button:disabled {
     margin: 10px;
     padding: 20px;
   }
-}
+  
+  .success-buttons {
+    flex-direction: column;
+  }
+} 
