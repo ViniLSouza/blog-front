@@ -172,7 +172,7 @@ const Cadastro = ({ navigate }) => {
               name="bio"
               value={formData.bio}
               onChange={handleChange}
-              placeholder="Conte um pouco sobre você, suas experiências e interesses no mundo da escrita..."
+              placeholder="Conte um pouco sobre você, suas experiências e interesses no mundo da gastronomia..."
               rows="4"
               maxLength={VALIDATION.MAX_BIO_LENGTH}
             />
@@ -190,7 +190,6 @@ const Cadastro = ({ navigate }) => {
               name="senha"
               value={formData.senha}
               onChange={handleChange}
-              placeholder="Mínimo de 6 caracteres"
               maxLength={VALIDATION.MAX_SENHA_LENGTH}
               required
             />
