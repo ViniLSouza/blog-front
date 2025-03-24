@@ -116,33 +116,27 @@ const Cadastro = ({ navigate }) => {
   }
 
   return (
-    <div className="auth-wrapper">
-      <div className="container">
-        <div className="blog-icon">
-          <span role="img" aria-label="blog icon">✍️</span>
+    <div className="cadastro-container">
+      <header className="header">
+        <div className="logo">
+          <span role="img" aria-label="blog icon">🌶️</span> Tempero Compartilhado
         </div>
-        <h2>Junte-se ao Blog</h2>
-        
-        {formErrors.submit && (
-          <div className="error-message">{formErrors.submit}</div>
-        )}
-        
-        <form onSubmit={handleSubmit}>
+      </header>
+
+      <main className="main-content">
+        <form className="cadastro-form" onSubmit={handleSubmit}>
+          <h2 className="form-title">Criar Conta</h2>
+          
           <div className="form-group">
-            <label htmlFor="nome">Nome Completo</label>
+            <label htmlFor="nome">Nome</label>
             <input
               type="text"
               id="nome"
               name="nome"
               value={formData.nome}
               onChange={handleChange}
-              placeholder="Seu nome completo"
-              maxLength={VALIDATION.MAX_NOME_LENGTH}
+              required
             />
-            <div className="input-counter">
-              {formData.nome.length}/{VALIDATION.MAX_NOME_LENGTH}
-            </div>
-            {formErrors.nome && <div className="input-error">{formErrors.nome}</div>}
           </div>
 
           <div className="form-group">
@@ -153,10 +147,8 @@ const Cadastro = ({ navigate }) => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="seu.email@exemplo.com"
-              maxLength={VALIDATION.MAX_EMAIL_LENGTH}
+              required
             />
-            {formErrors.email && <div className="input-error">{formErrors.email}</div>}
           </div>
 
           <div className="form-group">
@@ -200,6 +192,7 @@ const Cadastro = ({ navigate }) => {
               onChange={handleChange}
               placeholder="Mínimo de 6 caracteres"
               maxLength={VALIDATION.MAX_SENHA_LENGTH}
+              required
             />
             <div className="password-requirements">
               <p>A senha deve conter:</p>
@@ -232,21 +225,28 @@ const Cadastro = ({ navigate }) => {
               name="confirmarSenha"
               value={formData.confirmarSenha}
               onChange={handleChange}
-              placeholder="Digite sua senha novamente"
-              maxLength={VALIDATION.MAX_SENHA_LENGTH}
+              required
             />
-            {formErrors.confirmarSenha && <div className="input-error">{formErrors.confirmarSenha}</div>}
           </div>
 
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Cadastrando..." : "Começar a Blogar"}
+          {formErrors.submit && <p className="error-message">{formErrors.submit}</p>}
+
+          <button type="submit" className="submit-button" disabled={isSubmitting}>
+            {isSubmitting ? "Cadastrando..." : "Cadastrar"}
           </button>
+
+          <p className="login-link">
+            Já tem uma conta?{' '}
+            <a href="#" onClick={(e) => { e.preventDefault(); navigate('/login'); }}>
+              Faça login
+            </a>
+          </p>
         </form>
-        
-        <div className="login-link">
-          Já tem uma conta? <a href="#" onClick={(e) => { e.preventDefault(); navigate('/login'); }}>Faça login</a>
-        </div>
-      </div>
+      </main>
+
+      <footer className="footer">
+        <p>&copy; {new Date().getFullYear()} Tempero Compartilhado. Todos os direitos reservados.</p>
+      </footer>
     </div>
   );
 };

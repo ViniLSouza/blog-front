@@ -71,6 +71,16 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Estilos para inputs */
+input, textarea {
+  color: #000 !important;
+  background-color: #fff !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #888 !important;
+}
+
 /* Estilos para a tela principal do app */
 .App {
   width: 100%;
