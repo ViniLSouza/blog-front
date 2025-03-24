@@ -227,6 +227,13 @@ const Cadastro = ({ navigate }) => {
               onChange={handleChange}
               required
             />
+            <div className="password-match-requirements">
+              <ul>
+                <li className={formData.senha && formData.confirmarSenha && formData.senha === formData.confirmarSenha ? 'fulfilled' : ''}>
+                  Senhas iguais
+                </li>
+              </ul>
+            </div>
           </div>
 
           {formErrors.submit && <p className="error-message">{formErrors.submit}</p>}
