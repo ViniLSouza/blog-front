@@ -1,10 +1,22 @@
+/**
+ * Contexto de Autenticação
+ * Gerencia o estado global de autenticação da aplicação
+ * Fornece funções para login, cadastro, logout e verificação de autenticação
+ */
 import { createContext, useState, useEffect, useContext } from 'react';
 import { authService } from '../services/authService';
 
-// Criando o contexto
+/**
+ * Contexto de autenticação
+ * @type {React.Context}
+ */
 export const AuthContext = createContext(null);
 
-// Hook para facilitar o uso do contexto
+/**
+ * Hook personalizado para acessar o contexto de autenticação
+ * @returns {Object} Objeto contendo o estado e funções de autenticação
+ * @throws {Error} Se usado fora do AuthProvider
+ */
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -13,12 +25,22 @@ export const useAuth = () => {
   return context;
 };
 
-// Provider
+/**
+ * Provedor do contexto de autenticação
+ * @param {Object} props - Propriedades do componente
+ * @param {React.ReactNode} props.children - Componentes filhos
+ */
 export const AuthProvider = ({ children }) => {
+  // Estado do usuário autenticado
   const [user, setUser] = useState(null);
+  
+  // Estado de carregamento inicial
   const [loading, setLoading] = useState(true);
   
-  // Verificar se o usuário está logado ao carregar a aplicação
+  /**
+   * Efeito para carregar o usuário do localStorage ao montar o componente
+   * Verifica se existe um usuário salvo e atualiza o estado
+   */
   useEffect(() => {
     const loadUser = () => {
       const savedUser = authService.getUsuario();
@@ -30,7 +52,13 @@ export const AuthProvider = ({ children }) => {
     loadUser();
   }, []);
   
-  // Função para realizar login
+  /**
+   * Realiza o login do usuário
+   * @param {string} email - Email do usuário
+   * @param {string} senha - Senha do usuário
+   * @returns {Promise<Object>} Dados do usuário logado
+   * @throws {Error} Se houver erro no login
+   */
   const login = async (email, senha) => {
     try {
       const usuario = await authService.login(email, senha);
@@ -42,7 +70,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
   
-  // Função para realizar cadastro
+  /**
+   * Realiza o cadastro de um novo usuário
+   * @param {Object} userData - Dados do usuário para cadastro
+   * @returns {Promise<Object>} Resposta da API de cadastro
+   * @throws {Error} Se houver erro no cadastro
+   */
   const cadastrar = async (userData) => {
     try {
       const data = await authService.cadastrar(userData);
@@ -53,25 +86,34 @@ export const AuthProvider = ({ children }) => {
     }
   };
   
-  // Função para fazer logout
+  /**
+   * Realiza o logout do usuário
+   * Remove os dados do localStorage e limpa o estado
+   */
   const logout = () => {
     authService.logout();
     setUser(null);
   };
   
-  // Verificar se o usuário está autenticado
+  /**
+   * Verifica se existe um usuário autenticado
+   * @returns {boolean} true se houver usuário autenticado, false caso contrário
+   */
   const isAuthenticated = () => {
     return !!user;
   };
   
-  // Valor do contexto
+  /**
+   * Valor do contexto que será disponibilizado para a aplicação
+   * @type {Object}
+   */
   const contextValue = {
-    user,
-    loading,
-    login,
-    cadastrar,
-    logout,
-    isAuthenticated
+    user,          // Dados do usuário atual
+    loading,       // Estado de carregamento
+    login,         // Função de login
+    cadastrar,     // Função de cadastro
+    logout,        // Função de logout
+    isAuthenticated // Função para verificar autenticação
   };
   
   return (
