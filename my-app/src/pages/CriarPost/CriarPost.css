@@ -1,1 +1,273 @@
- 
+/**
+ * Container principal da página de criar post
+ */
+.criar-post-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+}
+
+/**
+ * Conteúdo principal
+ */
+.criar-post-content {
+  flex: 1;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/**
+ * Card do formulário de criar post
+ */
+.criar-post-card {
+  background-color: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+  padding: 2rem;
+}
+
+/**
+ * Cabeçalho do card
+ */
+.criar-post-header {
+  margin-bottom: 2rem;
+}
+
+.criar-post-header h1 {
+  color: var(--black);
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.criar-post-header p {
+  color: var(--grey-600);
+  font-size: 0.875rem;
+}
+
+/**
+ * Formulário de criar post
+ */
+.criar-post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  color: var(--grey-700);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--grey-200);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background-color: var(--grey-100);
+  color: var(--grey-800);
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  background-color: var(--white);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+.form-control::placeholder {
+  color: var(--grey-500);
+}
+
+textarea.form-control {
+  min-height: 200px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/**
+ * Container do editor
+ */
+.editor-container {
+  position: relative;
+}
+
+/**
+ * Barra de ferramentas do editor
+ */
+.editor-toolbar {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--grey-100);
+  border-radius: 8px 8px 0 0;
+  border: 2px solid var(--grey-200);
+  border-bottom: none;
+}
+
+.toolbar-button {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: var(--grey-700);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toolbar-button:hover {
+  background-color: var(--grey-200);
+  color: var(--grey-800);
+}
+
+.toolbar-button.active {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+/**
+ * Área de visualização
+ */
+.preview-area {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 2px solid var(--grey-200);
+  border-radius: 8px;
+  background-color: var(--white);
+}
+
+.preview-area img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/**
+ * Botões de ação
+ */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.publish-button {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+}
+
+.publish-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.publish-button:disabled {
+  background-color: var(--grey-400);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.draft-button {
+  background-color: var(--white);
+  color: var(--grey-700);
+  border: 2px solid var(--grey-300);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.draft-button:hover {
+  background-color: var(--grey-100);
+  border-color: var(--grey-400);
+}
+
+/**
+ * Mensagens de feedback
+ */
+.error-message {
+  color: var(--danger);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.success-message {
+  background-color: var(--success);
+  color: var(--white);
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+/**
+ * Contador de caracteres
+ */
+.character-count {
+  font-size: 0.75rem;
+  color: var(--grey-600);
+  text-align: right;
+  margin-top: 0.25rem;
+}
+
+.character-count.limit {
+  color: var(--danger);
+}
+
+@media (max-width: 768px) {
+  .criar-post-card {
+    padding: 1.5rem;
+  }
+
+  .criar-post-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .publish-button,
+  .draft-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .criar-post-content {
+    margin: 1rem auto;
+  }
+
+  .criar-post-card {
+    padding: 1rem;
+  }
+
+  .editor-toolbar {
+    flex-wrap: wrap;
+  }
+} 

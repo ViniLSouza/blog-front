@@ -259,6 +259,9 @@ const Home = ({ navigate }) => {
         <section className="create-post-section">
           <form onSubmit={handleSubmit} className="post-form">
             <div className="form-group">
+              <label htmlFor="titulo">
+                Título <span className="required-star">*</span>
+              </label>
               <input
                 type="text"
                 id="titulo"
@@ -273,6 +276,9 @@ const Home = ({ navigate }) => {
             </div>
 
             <div className="form-group">
+              <label htmlFor="conteudo">
+                Conteúdo <span className="required-star">*</span>
+              </label>
               <div className="textarea-container">
                 <textarea
                   id="conteudo"
@@ -286,9 +292,6 @@ const Home = ({ navigate }) => {
                 />
                 {/* Rodapé do textarea com contador de caracteres e botão de emoji */}
                 <div className="textarea-footer">
-                  <span className="character-count">
-                    {formData.conteudo.length}/{MAX_CONTENT_LENGTH}
-                  </span>
                   <button 
                     type="button" 
                     className="emoji-button"
@@ -297,6 +300,9 @@ const Home = ({ navigate }) => {
                   >
                     😊
                   </button>
+                  <span className="character-count">
+                    {formData.conteudo.length}/{MAX_CONTENT_LENGTH}
+                  </span>
                 </div>
                 {/* Seletor de emojis */}
                 {showEmojiPicker && (
@@ -316,7 +322,7 @@ const Home = ({ navigate }) => {
               </div>
             </div>
 
-            {postError && <p className="error-message">{postError}</p>}
+            {postError && <div className="error-message">{postError}</div>}
 
             <button 
               type="submit" 
@@ -330,40 +336,29 @@ const Home = ({ navigate }) => {
 
         {/* Seção de exibição de posts */}
         <section className="posts-section">
-          {loading && <p className="loading">Carregando posts...</p>}
-          {error && <p className="error-message">{error}</p>}
-          
-          {/* Lista de posts */}
-          {posts.map(post => (
-            <article key={post.id} className="post-card">
-              {/* Cabeçalho do post com informações do autor */}
-              <div className="post-header">
-                <div className="post-info">
-                  <h2 className="post-title">{post.titulo}</h2>
-                  <div className="post-meta">
-                    <span className="post-author">{post.usuario?.nome}</span>
-                    <span className="post-date">{formatDate(post.dataCriacao)}</span>
+          <div className="posts-grid">
+            {posts.map(post => (
+              <div key={post.id} className="post-card">
+                <div className="post-header">
+                  <span>{post.usuario?.nome || 'Usuário Anônimo'}</span>
+                  <div className="post-meta-right">
+                    {post.usuarioId === user?.id && (
+                      <button
+                        className="edit-button"
+                        onClick={() => handleEdit(post)}
+                        aria-label="Editar post"
+                      >
+                        ✏️
+                      </button>
+                    )}
+                    <span>{formatDate(post.dataCriacao)}</span>
                   </div>
                 </div>
+                <h2 className="post-title">{post.titulo}</h2>
+                <p className="post-content">{post.conteudo}</p>
               </div>
-
-              {/* Conteúdo do post */}
-              <div className="post-content">
-                <p>{post.conteudo}</p>
-              </div>
-
-              {/* Botão de edição (visível apenas para o autor) */}
-              {user?.id === post.usuarioId && (
-                <button
-                  className="edit-button"
-                  onClick={() => handleEdit(post)}
-                  title="Editar publicação"
-                >
-                  ✏️
-                </button>
-              )}
-            </article>
-          ))}
+            ))}
+          </div>
         </section>
       </main>
 
@@ -376,36 +371,53 @@ const Home = ({ navigate }) => {
               <button 
                 className="close-button"
                 onClick={() => setEditingPost(null)}
+                aria-label="Fechar modal"
               >
                 ×
               </button>
             </div>
             <div className="modal-body">
               <div className="form-group">
+                <label htmlFor="edit-titulo">
+                  Título <span className="required-star">*</span>
+                </label>
                 <input
                   type="text"
+                  id="edit-titulo"
                   name="titulo"
                   value={editFormData.titulo}
                   onChange={handleEditChange}
                   className="form-control"
                   placeholder="Título da publicação"
+                  maxLength={100}
+                  required
                 />
               </div>
               <div className="form-group">
+                <label htmlFor="edit-conteudo">
+                  Conteúdo <span className="required-star">*</span>
+                </label>
                 <textarea
+                  id="edit-conteudo"
                   name="conteudo"
                   value={editFormData.conteudo}
                   onChange={handleEditChange}
                   className="form-control"
-                  rows={4}
+                  rows={6}
                   placeholder="Conteúdo da publicação"
+                  required
                 />
+                <div className="character-count">
+                  {editFormData.conteudo.length}/{MAX_CONTENT_LENGTH} caracteres
+                </div>
               </div>
+              {error && <div className="error-message">{error}</div>}
             </div>
             <div className="modal-footer">
               <button 
                 className="delete-button"
                 onClick={() => handleDeleteClick(editingPost)}
+                title="Excluir publicação"
               >
                 Excluir
               </button>
@@ -419,8 +431,9 @@ const Home = ({ navigate }) => {
                 <button 
                   className="save-button"
                   onClick={handleEditSubmit}
+                  disabled={loading}
                 >
-                  Salvar
+                  {loading ? 'Salvando...' : 'Salvar'}
                 </button>
               </div>
             </div>
@@ -440,6 +453,7 @@ const Home = ({ navigate }) => {
                   setShowDeleteConfirm(false);
                   setPostToDelete(null);
                 }}
+                aria-label="Fechar modal"
               >
                 ×
               </button>
@@ -461,8 +475,9 @@ const Home = ({ navigate }) => {
               <button 
                 className="delete-button"
                 onClick={handleDeleteConfirm}
+                disabled={loading}
               >
-                Excluir
+                {loading ? 'Excluindo...' : 'Excluir'}
               </button>
             </div>
           </div>

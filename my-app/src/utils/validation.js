@@ -24,9 +24,9 @@ export const validateCadastroForm = (formData) => {
    * - Deve respeitar o limite máximo de caracteres
    */
   if (!formData.nome.trim()) {
-    errors.nome = "Nome é obrigatório";
+    errors.nome = "Por favor, digite seu nome";
   } else if (formData.nome.length > VALIDATION.MAX_NOME_LENGTH) {
-    errors.nome = `Nome deve ter no máximo ${VALIDATION.MAX_NOME_LENGTH} caracteres`;
+    errors.nome = `O nome deve ter no máximo ${VALIDATION.MAX_NOME_LENGTH} caracteres`;
   }
   
   /**
@@ -36,22 +36,19 @@ export const validateCadastroForm = (formData) => {
    * - Deve seguir o formato padrão de email
    */
   if (!formData.email.trim()) {
-    errors.email = "Email é obrigatório";
+    errors.email = "Por favor, digite seu email";
   } else if (formData.email.length > VALIDATION.MAX_EMAIL_LENGTH) {
-    errors.email = `Email deve ter no máximo ${VALIDATION.MAX_EMAIL_LENGTH} caracteres`;
+    errors.email = `O email deve ter no máximo ${VALIDATION.MAX_EMAIL_LENGTH} caracteres`;
   } else if (!REGEX.EMAIL.test(formData.email)) {
-    errors.email = "Formato de email inválido";
+    errors.email = "Por favor, digite um email válido";
   }
   
   /**
    * Validação do campo Telefone:
-   * - Não pode estar vazio
-   * - Deve seguir o formato (XX) XXXXX-XXXX
+   * - Opcional, mas se preenchido deve seguir o formato (XX) XXXXX-XXXX
    */
-  if (!formData.telefone.trim()) {
-    errors.telefone = "Telefone é obrigatório";
-  } else if (!REGEX.TELEFONE.test(formData.telefone)) {
-    errors.telefone = "Formato deve ser (XX) XXXXX-XXXX";
+  if (formData.telefone.trim() && !REGEX.TELEFONE.test(formData.telefone)) {
+    errors.telefone = "Por favor, use o formato (XX) XXXXX-XXXX";
   }
   
   /**
@@ -70,21 +67,23 @@ export const validateCadastroForm = (formData) => {
    * - Deve conter caracteres especiais conforme regex
    */
   if (!formData.senha) {
-    errors.senha = "Senha é obrigatória";
+    errors.senha = "Por favor, digite sua senha";
   } else if (formData.senha.length < VALIDATION.MIN_SENHA_LENGTH) {
     errors.senha = `A senha deve ter pelo menos ${VALIDATION.MIN_SENHA_LENGTH} caracteres`;
   } else if (formData.senha.length > VALIDATION.MAX_SENHA_LENGTH) {
     errors.senha = `A senha deve ter no máximo ${VALIDATION.MAX_SENHA_LENGTH} caracteres`;
   } else if (!REGEX.SENHA.test(formData.senha)) {
-    errors.senha = "A senha deve conter pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial";
+    errors.senha = "A senha deve incluir letras maiúsculas, minúsculas, números e caracteres especiais";
   }
   
   /**
    * Validação da confirmação de senha:
    * - Deve ser igual à senha informada
    */
-  if (formData.senha !== formData.confirmarSenha) {
-    errors.confirmarSenha = "As senhas não coincidem";
+  if (!formData.confirmarSenha) {
+    errors.confirmarSenha = "Por favor, confirme sua senha";
+  } else if (formData.senha !== formData.confirmarSenha) {
+    errors.confirmarSenha = "As senhas não correspondem";
   }
   
   return errors;
@@ -105,7 +104,9 @@ export const validateLoginForm = (formData) => {
    * - Não pode estar vazio
    */
   if (!formData.email.trim()) {
-    errors.email = "Email é obrigatório";
+    errors.email = "Por favor, digite seu email";
+  } else if (!REGEX.EMAIL.test(formData.email)) {
+    errors.email = "Por favor, digite um email válido";
   }
   
   /**
@@ -113,7 +114,7 @@ export const validateLoginForm = (formData) => {
    * - Não pode estar vazio
    */
   if (!formData.senha) {
-    errors.senha = "Senha é obrigatória";
+    errors.senha = "Por favor, digite sua senha";
   }
   
   return errors;

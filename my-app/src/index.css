@@ -1,161 +1,153 @@
-/**
- * Importação da fonte Poppins do Google Fonts
- * Inclui as variações de peso: 300 (light), 400 (regular), 500 (medium), 
- * 600 (semibold) e 700 (bold)
- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/**
- * Variáveis globais CSS definidas na raiz do documento
- * Estas variáveis podem ser acessadas em qualquer parte da aplicação
- */
 :root {
-  /* Paleta de cores principal */
-  --primary-color: #FF6B6B;    /* Cor principal - Light Coral */
-  --primary-hover: #ff5252;    /* Cor para estados hover */
-  --white: #FFFFFF;            /* Branco puro */
-  --black: #000000;            /* Preto puro */
-  --light-grey: #D3D3D3;       /* Cinza claro para bordas e elementos secundários */
-  --background: #f8f9fa;       /* Cor de fundo padrão */
-  --text-primary: #213547;     /* Cor principal para textos */
-  --text-secondary: #666;      /* Cor secundária para textos */
+  /* Cores principais */
+  --primary-color: #FF6B6B;
+  --primary-dark: #e85555;
+  --secondary-color: #4ECDC4;
+  
+  /* Cores de fundo */
+  --background-color: #f8f9fa;
+  --white: #FFFFFF;
+  --black: #2D3436;
+  
+  /* Escala de cinza */
+  --grey-100: #F8F9FA;
+  --grey-200: #E9ECEF;
+  --grey-300: #DEE2E6;
+  --grey-400: #CED4DA;
+  --grey-500: #ADB5BD;
+  --grey-600: #6C757D;
+  --grey-700: #495057;
+  --grey-800: #343A40;
+  
+  /* Cores de estado */
+  --danger: #dc3545;
+  --danger-dark: #c82333;
+  --success: #28a745;
+  --success-dark: #1e7e34;
+  --warning: #ffc107;
+  --warning-dark: #d39e00;
+  
+  /* Sombras */
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --box-shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+  
+  /* Tipografia */
+  --font-family: 'Poppins', sans-serif;
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  
+  /* Espaçamento */
+  --spacing-xs: 0.25rem;      /* 4px */
+  --spacing-sm: 0.5rem;       /* 8px */
+  --spacing-md: 1rem;         /* 16px */
+  --spacing-lg: 1.5rem;       /* 24px */
+  --spacing-xl: 2rem;         /* 32px */
+  
+  /* Border radius */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  
+  /* Transições */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+}
 
-  /* Configurações de tipografia */
-  font-family: 'Poppins', sans-serif;
-  line-height: 1.5;            /* Altura da linha para melhor legibilidade */
-  font-weight: 400;            /* Peso da fonte padrão (regular) */
+/* Reset e estilos base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  /* Configurações globais de cor */
-  color: var(--text-primary);
-  background-color: var(--background);
-
-  /* Otimizações de renderização de fonte */
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+body {
+  font-family: var(--font-family);
+  line-height: 1.5;
+  color: var(--grey-800);
+  background-color: var(--background-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/**
- * Reset CSS básico
- * Garante que todos os elementos comecem com as mesmas propriedades básicas
- */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* Estilos de texto */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--black);
+  font-weight: 600;
+  line-height: 1.2;
 }
 
-/**
- * Estilos base para o body
- * Define as dimensões mínimas e comportamento de overflow
- */
-body {
-  margin: 0;
-  min-width: 320px;           /* Largura mínima para evitar layouts muito estreitos */
-  min-height: 100vh;          /* Altura mínima para ocupar toda a viewport */
-  width: 100%;
-  overflow-x: hidden;         /* Previne scroll horizontal */
-}
-
-/**
- * Estilos para o elemento root do React
- * Garante que a aplicação ocupe toda a altura da viewport
- */
-#root {
-  width: 100%;
-  min-height: 100vh;
-}
-
-/**
- * Container principal da aplicação
- * Utiliza flexbox para garantir que o conteúdo ocupe toda a altura
- */
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: var(--background);
-}
-
-/**
- * Estilos base para campos de entrada
- * Define a aparência padrão para inputs e textareas
- */
-input, 
-textarea {
-  font-family: inherit;
-  color: var(--text-primary);
-  background-color: var(--white);
-  border: 1px solid var(--light-grey);
-  border-radius: 4px;
-  padding: 0.6em 1em;
-  font-size: 1em;
-  transition: border-color 0.2s;
-}
-
-/**
- * Estados de foco para campos de entrada
- * Melhora a acessibilidade e feedback visual
- */
-input:focus,
-textarea:focus {
-  outline: none;
-  border-color: var(--primary-color);
-}
-
-/**
- * Estilo para placeholders
- * Define a cor do texto de placeholder
- */
-input::placeholder,
-textarea::placeholder {
-  color: var(--text-secondary);
-}
-
-/**
- * Estilos base para botões
- * Define a aparência padrão para todos os botões
- */
-button {
-  font-family: inherit;
-  border: none;
-  border-radius: 4px;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-/**
- * Estilos para links
- * Define a aparência padrão e comportamento hover
- */
 a {
   color: var(--primary-color);
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: color var(--transition-fast);
 }
 
 a:hover {
-  text-decoration: underline;
+  color: var(--primary-dark);
 }
 
-/**
- * Estilos para elementos code
- * Define a fonte monoespaçada para código
- */
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+/* Estilos de input */
+input, textarea, select {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
 }
 
-/**
- * Media Queries para responsividade
- * Ajusta elementos para telas menores
- */
+button {
+  font-family: var(--font-family);
+  cursor: pointer;
+}
+
+/* Utilitários */
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.mt-1 { margin-top: var(--spacing-xs); }
+.mt-2 { margin-top: var(--spacing-sm); }
+.mt-3 { margin-top: var(--spacing-md); }
+.mt-4 { margin-top: var(--spacing-lg); }
+.mt-5 { margin-top: var(--spacing-xl); }
+
+.mb-1 { margin-bottom: var(--spacing-xs); }
+.mb-2 { margin-bottom: var(--spacing-sm); }
+.mb-3 { margin-bottom: var(--spacing-md); }
+.mb-4 { margin-bottom: var(--spacing-lg); }
+.mb-5 { margin-bottom: var(--spacing-xl); }
+
+/* Responsividade */
 @media (max-width: 768px) {
-  button {
-    padding: 0.5em 1em;      /* Reduz o padding dos botões em telas menores */
+  :root {
+    --spacing-lg: 1.25rem;
+    --spacing-xl: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+  
+  :root {
+    --font-size-4xl: 2rem;
+    --font-size-3xl: 1.75rem;
+    --font-size-2xl: 1.375rem;
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.25rem;
   }
 } 

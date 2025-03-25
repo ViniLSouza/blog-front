@@ -36,65 +36,73 @@ const Login = ({ navigate }) => {
 
   return (
     <div className="login-container">
-      {/* Cabeçalho com logo */}
-      <header className="header">
-        <div className="logo">
-          <span role="img" aria-label="blog icon">🌶️</span> Tempero Compartilhado
+      <div className="login-card">
+        <div className="login-header">
+          <div className="brand">
+            <span role="img" aria-label="pimenta">🌶️</span> Tempero Compartilhado
+          </div>
+          <h1>Bem-vindo de volta!</h1>
+          <p>Entre na sua conta para continuar</p>
         </div>
-      </header>
 
-      {/* Conteúdo principal */}
-      <main className="main-content">
-        {/* Formulário de login */}
+        {/* Mensagem de erro */}
+        {error && <div className="error-message">{error}</div>}
+
         <form className="login-form" onSubmit={handleSubmit}>
-          <h2 className="form-title">Login</h2>
-          
           {/* Campo de email */}
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">
+              Email <span className="required-star">*</span>
+            </label>
             <input
               type="email"
               id="email"
+              className={`form-control ${error ? 'error' : ''}`}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="exemplo@email.com"
               required
             />
           </div>
 
           {/* Campo de senha */}
           <div className="form-group">
-            <label htmlFor="senha">Senha</label>
+            <label htmlFor="senha">
+              Senha <span className="required-star">*</span>
+            </label>
             <input
               type="password"
               id="senha"
+              className={`form-control ${error ? 'error' : ''}`}
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
+              placeholder="Digite sua senha"
               required
             />
+            <div className="forgot-password">
+              <a href="#" onClick={(e) => { e.preventDefault(); /* TODO: Implementar recuperação de senha */ }}>
+                Esqueceu a senha?
+              </a>
+            </div>
           </div>
 
-          {/* Mensagem de erro */}
-          {error && <p className="error-message">{error}</p>}
-
-          {/* Botão de submit */}
-          <button type="submit" className="submit-button">
+          {/* Botão de login */}
+          <button type="submit" className="login-button">
             Entrar
           </button>
-
-          {/* Link para cadastro */}
-          <p className="register-link">
-            Não tem uma conta?{' '}
-            <a href="#" onClick={(e) => { e.preventDefault(); navigate('/cadastro'); }}>
-              Cadastre-se
-            </a>
-          </p>
         </form>
-      </main>
 
-      {/* Rodapé */}
-      <footer className="footer">
-        <p>&copy; {new Date().getFullYear()} Tempero Compartilhado. Todos os direitos reservados.</p>
-      </footer>
+        {/* Link para cadastro */}
+        <div className="register-link">
+          Não tem uma conta?
+          <a href="/cadastro" onClick={(e) => {
+            e.preventDefault();
+            navigate('/cadastro');
+          }}>
+            Criar Conta
+          </a>
+        </div>
+      </div>
     </div>
   );
 };

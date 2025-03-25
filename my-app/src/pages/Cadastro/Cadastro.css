@@ -1,394 +1,272 @@
-/* 
- * Estilos para a página de cadastro
- * Inclui layout responsivo e animações
+/**
+ * Container principal da página de cadastro
  */
-
-/* Container principal da página */
 .cadastro-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--background);
-}
-
-/* Cabeçalho com logo */
-.header {
-  padding: 1rem 2rem;
-  background: var(--white);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
+  background-color: var(--background-color);
+  padding: 1rem;
 }
 
-/* Estilização do logo */
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+/**
+ * Card do formulário de cadastro
+ */
+.cadastro-card {
+  background-color: var(--white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--box-shadow);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 450px;
+  transition: transform var(--transition-fast);
+}
+
+.cadastro-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--box-shadow-lg);
+}
+
+/**
+ * Cabeçalho do card de cadastro
+ */
+.cadastro-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.brand {
+  font-size: var(--font-size-2xl);
   color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.brand span {
+  font-size: 2.5em;
+  line-height: 1;
+}
+
+.cadastro-header h1 {
+  color: var(--primary-color);
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.cadastro-header p {
+  color: var(--grey-600);
+  font-size: var(--font-size-sm);
+}
+
+/**
+ * Formulário de cadastro
+ */
+.cadastro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
 }
 
-/* Área principal do conteúdo */
-.main-content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 2rem;
-}
-
-/* Formulário de cadastro */
-.cadastro-form {
-  background: var(--white);
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 500px;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-/* Título do formulário */
-.form-title {
-  text-align: center;
-  color: var(--primary-color);
-  margin-bottom: 2rem;
-  font-size: 1.8rem;
-}
-
-/* Grupos de campos do formulário */
-.form-group {
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-
-/* Labels dos campos */
 .form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: var(--text-color);
+  color: var(--grey-700);
+  font-size: var(--font-size-sm);
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
-/* Campos de input */
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  transition: border-color 0.2s ease;
+.required-star {
+  color: var(--danger);
 }
 
-/* Estilo de foco nos campos */
-.form-group input:focus,
-.form-group textarea:focus {
-  border-color: var(--primary-color);
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.1);
-}
-
-/* Contador de caracteres da bio */
-.bio-counter {
-  font-size: 0.8rem;
-  color: #666;
-  text-align: right;
-  margin-top: 0.25rem;
-}
-
-/* Requisitos de senha */
-.password-requirements {
-  font-size: 0.85rem;
-  color: #666;
-  margin-top: 0.5rem;
-}
-
-.password-requirements p {
-  margin-bottom: 0.25rem;
-}
-
-.password-requirements ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-}
-
-.password-requirements li {
-  margin: 0.25rem 0;
-  padding-left: 1.5rem;
-  position: relative;
-}
-
-/* Indicador de requisito cumprido */
-.password-requirements li.fulfilled::before {
-  content: "✓";
-  color: #4CAF50;
-  position: absolute;
-  left: 0;
-}
-
-/* Indicador de requisito não cumprido */
-.password-requirements li:not(.fulfilled)::before {
-  content: "○";
-  color: #999;
-  position: absolute;
-  left: 0;
-}
-
-/* Mensagens de erro */
-.input-error {
-  color: #d32f2f;
-  font-size: 0.85rem;
-  margin-top: 0.25rem;
-}
-
-.error-message {
-  color: #d32f2f;
-  text-align: center;
-  margin: 1rem 0;
-}
-
-/* Botão de submit */
-.submit-button {
+.form-control {
   width: 100%;
   padding: 1rem;
-  background: var(--primary-color);
-  color: white;
+  border: 2px solid var(--grey-200);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  transition: all var(--transition-fast);
+  background-color: var(--grey-100);
+  color: var(--grey-800);
+  font-family: var(--font-family);
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  background-color: var(--white);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+.form-control::placeholder {
+  color: var(--grey-500);
+}
+
+.form-control.error {
+  border-color: var(--danger);
+  background-color: var(--white);
+}
+
+/**
+ * Mensagem de erro do campo
+ */
+.field-error {
+  color: var(--danger);
+  font-size: var(--font-size-xs);
+  margin-top: 0.25rem;
+}
+
+/**
+ * Botão de cadastro
+ */
+.cadastro-button {
+  background-color: var(--primary-color);
+  color: var(--white);
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  padding: 1rem;
+  border-radius: var(--border-radius-md);
   font-weight: 600;
+  font-size: var(--font-size-base);
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all var(--transition-fast);
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 4px rgba(255, 107, 107, 0.2);
 }
 
-.submit-button:hover:not(:disabled) {
-  background: var(--primary-color-dark);
+.cadastro-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
 }
 
-.submit-button:disabled {
-  background: #ccc;
+.cadastro-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(255, 107, 107, 0.2);
+}
+
+.cadastro-button:disabled {
+  background-color: var(--grey-400);
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-/* Link para página de login */
+/**
+ * Link para login
+ */
 .login-link {
   text-align: center;
   margin-top: 1.5rem;
-  color: #666;
+  color: var(--grey-600);
+  font-size: var(--font-size-sm);
 }
 
 .login-link a {
   color: var(--primary-color);
   text-decoration: none;
   font-weight: 500;
+  margin-left: 0.25rem;
+  transition: all var(--transition-fast);
 }
 
 .login-link a:hover {
+  color: var(--primary-dark);
   text-decoration: underline;
 }
 
-/* Container de mensagem de sucesso */
-.success-container {
-  background: white;
-  padding: 3rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+/**
+ * Mensagem de erro geral
+ */
+.error-message {
+  color: var(--danger);
+  font-size: var(--font-size-sm);
+  margin-top: 0.5rem;
   text-align: center;
-  max-width: 500px;
-  animation: fadeIn 0.3s ease-in-out;
+  padding: 0.75rem;
+  background-color: rgba(220, 53, 69, 0.1);
+  border-radius: var(--border-radius-md);
 }
 
-/* Ícone de sucesso */
-.success-icon {
-  font-size: 4rem;
-  color: #4CAF50;
-  margin-bottom: 1rem;
+/**
+ * Mensagem de sucesso
+ */
+.success-message {
+  background-color: var(--success);
+  color: var(--white);
+  padding: 1rem;
+  border-radius: var(--border-radius-md);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
 }
 
-/* Botões da tela de sucesso */
-.success-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 2rem;
+/**
+ * Container de força da senha
+ */
+.password-strength {
+  margin-top: 0.5rem;
 }
 
-/* Animação de fade in */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.strength-bar {
+  height: 4px;
+  background-color: var(--grey-200);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 0.25rem;
 }
 
-/* Media queries para responsividade */
-@media (max-width: 600px) {
-  .main-content {
-    padding: 1rem;
-  }
+.strength-bar-fill {
+  height: 100%;
+  transition: all var(--transition-fast);
+}
 
-  .cadastro-form {
+.strength-bar-fill.weak {
+  width: 33.33%;
+  background-color: var(--danger);
+}
+
+.strength-bar-fill.medium {
+  width: 66.66%;
+  background-color: var(--warning);
+}
+
+.strength-bar-fill.strong {
+  width: 100%;
+  background-color: var(--success);
+}
+
+.strength-text {
+  font-size: var(--font-size-xs);
+  color: var(--grey-600);
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 480px) {
+  .cadastro-card {
     padding: 1.5rem;
   }
 
-  .success-container {
-    padding: 2rem;
-    margin: 1rem;
+  .cadastro-header h1 {
+    font-size: var(--font-size-2xl);
   }
 
-  .success-buttons {
-    flex-direction: column;
-  }
-}
-
-/* Estilos para a página de cadastro */
-.container {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  width: 100%;
-  max-width: 450px;
-  text-align: center;
-  animation: fadeIn 0.5s ease-in-out;
-  margin: 20px 0;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.blog-icon {
-  background-color: #f2f7ff;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 20px;
-  font-size: 24px;
-}
-
-h2 {
-  color: #333;
-  margin-bottom: 24px;
-  font-size: 24px;
-}
-
-.input-counter,
-.bio-counter {
-  font-size: 12px;
-  color: #888;
-  text-align: right;
-  margin-top: 4px;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #3a7bc8;
-}
-
-button:disabled {
-  background-color: #a0c3e8;
-  cursor: not-allowed;
-}
-
-/* Estilos para a tela de sucesso */
-.success-container {
-  text-align: center;
-}
-
-.success-icon {
-  background-color: #e6f7ed;
-  color: #28a745;
-  font-size: 32px;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 20px;
-}
-
-.success-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
-}
-
-.primary-button,
-.secondary-button {
-  flex: 1;
-  margin: 0 5px;
-  padding: 12px;
-  border-radius: 4px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.primary-button {
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-}
-
-.secondary-button {
-  background-color: white;
-  color: #4a90e2;
-  border: 1px solid #4a90e2;
-}
-
-.primary-button:hover {
-  background-color: #3a7bc8;
-}
-
-.secondary-button:hover {
-  background-color: #f2f7ff;
-}
-
-/* Responsividade */
-@media (max-width: 480px) {
-  .container {
-    padding: 20px;
-  }
-  
-  .success-buttons {
-    flex-direction: column;
-  }
-  
-  .primary-button,
-  .secondary-button {
-    margin: 5px 0;
+  .form-group label {
+    font-size: var(--font-size-xs);
   }
 } 

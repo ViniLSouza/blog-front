@@ -1,341 +1,238 @@
 /**
- * Estilos da página de login
- * Define a aparência e o layout da página de autenticação
- */
-
-/**
- * Container principal
- * Ocupa toda a altura da viewport e organiza o conteúdo em coluna
+ * Container principal da página de login
  */
 .login-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #f8f9fa;
-  width: 100%;
-}
-
-/**
- * Cabeçalho
- * Contém o logo centralizado com fundo colorido
- */
-.header {
-  background-color: #ff6b6b;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  justify-content: center;
+  background-color: var(--background-color);
+  padding: 1rem;
 }
 
 /**
- * Logo
- * Estilização do título e ícone do blog
+ * Card do formulário de login
  */
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: white;
+.login-card {
+  background-color: var(--white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--box-shadow);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 400px;
+  transition: transform var(--transition-fast);
+}
+
+.login-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--box-shadow-lg);
+}
+
+/**
+ * Cabeçalho do card de login
+ */
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.brand {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  font-size: var(--font-size-2xl);
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
-/**
- * Conteúdo principal
- * Centraliza o formulário na página
- */
-.main-content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 2rem;
-  box-sizing: border-box;
+.brand span {
+  font-size: 2.5em;
+  line-height: 1;
+}
+
+.login-header h1 {
+  color: var(--primary-color);
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.login-header p {
+  color: var(--grey-600);
+  font-size: var(--font-size-sm);
 }
 
 /**
  * Formulário de login
- * Card branco com sombra contendo os campos de entrada
  */
 .login-form {
-  background-color: white;
-  padding: 2.5rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-/**
- * Título do formulário
- * Cabeçalho "Login" centralizado
- */
-.form-title {
-  text-align: center;
-  color: #343a40;
-  margin-bottom: 2rem;
-  font-size: 1.8rem;
-}
-
-/**
- * Grupo de campos
- * Container para label e input
- */
 .form-group {
-  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-/**
- * Labels dos campos
- * Texto descritivo acima dos inputs
- */
 .form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #343a40;
+  color: var(--grey-700);
+  font-size: var(--font-size-sm);
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
-/**
- * Campos de entrada
- * Estilização dos inputs de email e senha
- */
-.form-group input {
+.required-star {
+  color: var(--danger);
+}
+
+.form-control {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
-  font-size: 1rem;
-  transition: border-color 0.2s ease;
+  padding: 1rem;
+  border: 2px solid var(--grey-200);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  transition: all var(--transition-fast);
+  background-color: var(--grey-100);
+  color: var(--grey-800);
+  font-family: var(--font-family);
 }
 
-/**
- * Estado de foco dos campos
- * Destaque visual quando o campo está selecionado
- */
-.form-group input:focus {
+.form-control:focus {
+  border-color: var(--primary-color);
+  background-color: var(--white);
   outline: none;
-  border-color: #ff6b6b;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+.form-control::placeholder {
+  color: var(--grey-500);
+}
+
+.form-control.error {
+  border-color: var(--danger);
+  background-color: var(--white);
 }
 
 /**
- * Botão de submit
- * Botão principal para enviar o formulário
+ * Mensagem de erro do campo
  */
-.submit-button {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #ff6b6b;
-  color: white;
+.field-error {
+  color: var(--danger);
+  font-size: var(--font-size-xs);
+  margin-top: 0.25rem;
+}
+
+/**
+ * Botão de login
+ */
+.login-button {
+  background-color: var(--primary-color);
+  color: var(--white);
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: bold;
+  padding: 1rem;
+  border-radius: var(--border-radius-md);
+  font-weight: 600;
+  font-size: var(--font-size-base);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 4px rgba(255, 107, 107, 0.2);
 }
 
-/**
- * Estado hover do botão
- * Efeito visual ao passar o mouse
- */
-.submit-button:hover {
-  background-color: #ff5252;
+.login-button:hover {
+  background-color: var(--primary-dark);
   transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+}
+
+.login-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(255, 107, 107, 0.2);
+}
+
+.login-button:disabled {
+  background-color: var(--grey-400);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 /**
  * Link para cadastro
- * Texto e link para a página de registro
  */
 .register-link {
   text-align: center;
   margin-top: 1.5rem;
-  color: #6c757d;
+  color: var(--grey-600);
+  font-size: var(--font-size-sm);
 }
 
-/**
- * Estilo do link
- * Cor e decoração do link de cadastro
- */
 .register-link a {
-  color: #ff6b6b;
+  color: var(--primary-color);
   text-decoration: none;
   font-weight: 500;
+  margin-left: 0.25rem;
+  transition: all var(--transition-fast);
 }
 
-/**
- * Estado hover do link
- */
 .register-link a:hover {
+  color: var(--primary-dark);
   text-decoration: underline;
 }
 
 /**
- * Mensagem de erro
- * Feedback visual para erros de autenticação
+ * Mensagem de erro geral
  */
 .error-message {
-  color: #dc3545;
-  font-size: 0.875rem;
+  color: var(--danger);
+  font-size: var(--font-size-sm);
   margin-top: 0.5rem;
   text-align: center;
+  padding: 0.75rem;
+  background-color: rgba(220, 53, 69, 0.1);
+  border-radius: var(--border-radius-md);
+  margin-bottom: 1rem;
 }
 
 /**
- * Rodapé
- * Barra inferior com informações de copyright
+ * Link "Esqueceu a senha?"
  */
-.footer {
-  background-color: #343a40;
-  color: white;
-  text-align: center;
-  padding: 1rem;
-  width: 100%;
+.forgot-password {
+  text-align: right;
+  margin-top: 0.5rem;
 }
 
-/**
- * Responsividade
- * Ajustes para diferentes tamanhos de tela
- */
-@media (max-width: 768px) {
-  .login-form {
-    max-width: 90%;
-    padding: 2rem;
-  }
+.forgot-password a {
+  color: var(--grey-600);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.forgot-password a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
 }
 
 @media (max-width: 480px) {
-  .login-form {
-    max-width: 100%;
-    padding: 1.5rem;
-    margin: 1rem;
-  }
-
-  .main-content {
-    padding: 1rem;
-  }
-}
-
-@media (max-height: 600px) {
-  .main-content {
-    height: calc(100vh - 100px);
-    padding: 1rem;
-  }
-
-  .login-form {
+  .login-card {
     padding: 1.5rem;
   }
-}
 
-/**
- * Tela de sucesso
- * Estilos para a mensagem de sucesso após o login
- */
-.success-container {
-  text-align: center;
-}
-
-/**
- * Ícone de sucesso
- * Círculo verde com ícone de confirmação
- */
-.success-icon {
-  background-color: #e6f7ed;
-  color: #28a745;
-  font-size: 32px;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 20px;
-}
-
-/**
- * Container de botões
- * Organização dos botões na tela de sucesso
- */
-.success-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
-}
-
-/**
- * Estilos base para botões
- * Propriedades comuns aos botões primário e secundário
- */
-.primary-button,
-.secondary-button {
-  flex: 1;
-  margin: 0 5px;
-  padding: 12px;
-  border-radius: 4px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-/**
- * Botão primário
- * Estilo do botão principal com fundo azul
- */
-.primary-button {
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-}
-
-/**
- * Botão secundário
- * Estilo do botão alternativo com borda
- */
-.secondary-button {
-  background-color: white;
-  color: #4a90e2;
-  border: 1px solid #4a90e2;
-}
-
-/**
- * Estado hover do botão primário
- */
-.primary-button:hover {
-  background-color: #3a7bc8;
-}
-
-/**
- * Estado hover do botão secundário
- */
-.secondary-button:hover {
-  background-color: #f2f7ff;
-}
-
-/**
- * Informações do usuário
- * Texto com dados do usuário logado
- */
-.user-info {
-  color: #666;
-  margin-bottom: 20px;
-}
-
-/**
- * Responsividade da tela de sucesso
- * Ajustes para telas menores
- */
-@media (max-width: 480px) {
-  .success-buttons {
-    flex-direction: column;
+  .login-header h1 {
+    font-size: var(--font-size-2xl);
   }
-  
-  .primary-button,
-  .secondary-button {
-    margin: 5px 0;
+
+  .form-group label {
+    font-size: var(--font-size-xs);
   }
 } 
