@@ -9,18 +9,22 @@ O Tempero Compartilhado é uma aplicação web moderna que permite aos usuários
 ### 🎯 Funcionalidades
 
 - **Autenticação de Usuários**
-  - Cadastro de novos usuários
+  - Cadastro de novos usuários com validações
   - Login com email e senha
   - Recuperação de senha
+  - Validação de força de senha
 
 - **Publicações**
   - Criação de posts com título e conteúdo
   - Edição de publicações existentes
-  - Exclusão de publicações
+  - Exclusão de publicações com confirmação
   - Visualização de posts de outros usuários
+  - Editor de texto rico para formatação
 
 - **Perfil do Usuário**
-  - Personalização do perfil
+  - Edição completa do perfil
+  - Alteração de senha com validação
+  - Confirmação de senha atual para mudanças
   - Histórico de publicações
   - Configurações da conta
 
@@ -28,21 +32,24 @@ O Tempero Compartilhado é uma aplicação web moderna que permite aos usuários
   - Comentários em publicações
   - Sistema de curtidas
   - Compartilhamento de receitas
+  - Feedback visual de interações
 
 ## 🛠️ Tecnologias Utilizadas
 
 - **Frontend**
-  - React.js
-  - Vite
+  - React.js 18
+  - Vite 4
   - CSS Modules
-  - React Router
+  - React Router v6
   - Context API
+  - Axios para requisições HTTP
 
 - **Backend**
   - Node.js
   - Express
   - PostgreSQL
   - JWT para autenticação
+  - Bcrypt para criptografia
 
 ## 🚀 Como Executar
 
@@ -87,8 +94,13 @@ yarn dev
 ```
 src/
 ├── components/     # Componentes reutilizáveis
-├── contexts/      # Contextos React
+├── contexts/      # Contextos React (Auth, Theme)
 ├── pages/         # Páginas da aplicação
+│   ├── Home/      # Página principal
+│   ├── Login/     # Autenticação
+│   ├── Cadastro/  # Registro
+│   ├── EditarPerfil/ # Edição de perfil
+│   └── CriarPost/ # Criação de posts
 ├── services/      # Serviços e APIs
 ├── utils/         # Funções utilitárias
 └── styles/        # Estilos globais
@@ -103,58 +115,60 @@ O projeto utiliza um design system consistente com as seguintes características
   - Secundária: #4ECDC4
   - Fundo: #F8F9FA
   - Texto: #343A40
+  - Erro: #DC3545
+  - Sucesso: #28A745
+  - Alerta: #FFC107
 
 - **Tipografia**
   - Fonte Principal: Poppins
-  - Tamanhos: xs, sm, base, lg, xl, 2xl, 3xl
+  - Tamanhos: xs (12px), sm (14px), base (16px), lg (18px), xl (20px), 2xl (24px), 3xl (30px)
 
 - **Espaçamento**
   - Padding: 0.5rem, 1rem, 1.5rem, 2rem, 2.5rem
   - Margin: 0.5rem, 1rem, 1.5rem, 2rem, 2.5rem
+  - Gap: 0.5rem, 1rem, 1.5rem
 
 - **Bordas**
   - Raio: 4px, 8px, 12px, 16px
   - Espessura: 1px, 2px
-
-## 🤝 Contribuindo
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## 📝 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 👥 Autores
-
-- **VFelipe Souza** - *Back-End* - [souza-felipe](https://github.com/souza-felipe)
-- **Vinicius Luciano** - *Front-End* - [ViniLSouza](https://github.com/ViniLSouza)
-
-## 🙏 Agradecimentos
-
-- [React](https://reactjs.org/)
-- [Vite](https://vitejs.dev/)
-- [PostgreSQL](https://www.postgresql.org/)
-- [Express](https://expressjs.com/)
+  - Estados: normal, hover, focus, error
 
 ## 🔒 Validações e Segurança
 
-- Validação de campos de formulário
-- Proteção contra XSS
-- Autenticação via JWT
-- Rotas protegidas
-- Sanitização de inputs
+- **Validação de Formulários**
+  - Campos obrigatórios
+  - Formato de email
+  - Força de senha (maiúsculas, minúsculas, números, caracteres especiais)
+  - Confirmação de senha
+  - Tamanho mínimo e máximo de campos
+  - Feedback visual de erros
+
+- **Segurança**
+  - Proteção contra XSS
+  - Autenticação via JWT
+  - Rotas protegidas
+  - Sanitização de inputs
+  - Confirmação de senha para alterações sensíveis
+  - Tokens de acesso com expiração
 
 ## 📱 Responsividade
 
 O projeto é totalmente responsivo e se adapta aos seguintes breakpoints:
 
 - 📱 Mobile: < 600px
+  - Layout simplificado
+  - Menu hamburguer
+  - Cards em coluna única
+
 - 📱 Tablet: 600px - 960px
+  - Layout adaptativo
+  - Cards em duas colunas
+  - Menu expandido
+
 - 💻 Desktop: > 960px
+  - Layout completo
+  - Cards em três colunas
+  - Sidebar fixa
 
 ## 🎨 Estilização
 
@@ -162,10 +176,25 @@ O projeto é totalmente responsivo e se adapta aos seguintes breakpoints:
 - Animações suaves para melhor UX
 - Design moderno e limpo
 - Feedback visual para interações
+- Modais com overlay e animações
+- Indicadores de carregamento
+- Mensagens de sucesso/erro
+- Tooltips informativos
 
 ## 📞 Suporte
 
 Para suporte, envie um email para [vinicius.luciano2603@gmail.com] ou abra uma issue no GitHub.
+
+## 🔄 Atualizações Recentes
+
+### Versão 1.1.0
+- Adicionada página de edição de perfil
+- Implementado modal de confirmação de senha
+- Melhorada validação de formulários
+- Adicionado indicador de força de senha
+- Corrigidos bugs de autenticação
+- Melhorada a responsividade geral
+- Atualizada a documentação
 
 ---
 
