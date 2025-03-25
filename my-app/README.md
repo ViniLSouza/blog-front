@@ -181,10 +181,6 @@ O projeto é totalmente responsivo e se adapta aos seguintes breakpoints:
 - Mensagens de sucesso/erro
 - Tooltips informativos
 
-## 📞 Suporte
-
-Para suporte, envie um email para [vinicius.luciano2603@gmail.com] ou abra uma issue no GitHub.
-
 ## 🔄 Atualizações Recentes
 
 ### Versão 1.1.0

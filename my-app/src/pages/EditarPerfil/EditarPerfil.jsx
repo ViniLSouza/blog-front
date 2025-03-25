@@ -249,7 +249,7 @@ const EditarPerfil = ({ navigate }) => {
                 className="cancel-button"
                 onClick={() => navigate('/')}
               >
-                Cancelar
+                Voltar
               </button>
               <button
                 type="submit"
