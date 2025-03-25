@@ -114,11 +114,11 @@ const Cadastro = ({ navigate }) => {
   // Renderiza a tela de sucesso após o cadastro
   if (cadastroSucesso) {
     return (
-      <div className="auth-wrapper">
-        <div className="container success-container">
+      <div className="cadastro-container">
+        <div className="success-container">
           <div className="success-icon">✓</div>
           <h2>Cadastro Realizado com Sucesso!</h2>
-          <p>Bem-vindo ao Blog Criativo! Sua conta foi criada e você já pode fazer login para começar a compartilhar suas histórias.</p>
+          <p>Bem-vindo ao Tempero Compartilhado! Sua conta foi criada e você já pode fazer login para começar a compartilhar suas receitas.</p>
           <div className="success-buttons">
             <button 
               onClick={() => navigate('/login')}

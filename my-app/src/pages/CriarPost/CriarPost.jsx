@@ -33,7 +33,6 @@ const CriarPost = ({ navigate }) => {
         data_criacao: new Date().toISOString()
       };
 
-      console.log('Enviando post:', postData);
       await apiService.post('/posts', postData);
       navigate('/');
     } catch (error) {
@@ -45,20 +44,24 @@ const CriarPost = ({ navigate }) => {
   };
 
   return (
-    <div className="home-container">
-      <header className="header">
-        <div className="logo">
-          <span role="img" aria-label="blog icon">🌶️</span> Tempero Compartilhado
-        </div>
-      </header>
+    <div className="criar-post-container">
+      <div className="criar-post-content">
+        <div className="criar-post-card">
+          <div className="criar-post-header">
+            <div className="brand">
+              <span role="img" aria-label="pimenta">🌶️</span> Tempero Compartilhado
+            </div>
+            <h1>Nova Publicação</h1>
+            <p>Compartilhe sua receita com a comunidade</p>
+          </div>
 
-      <main className="main-content">
-        <section className="welcome-section">
-          <form onSubmit={handleSubmit}>
-            <h2>Nova Publicação</h2>
+          {error && <div className="error-message">{error}</div>}
 
+          <form className="criar-post-form" onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="titulo">Título</label>
+              <label htmlFor="titulo">
+                Título <span className="required-star">*</span>
+              </label>
               <input
                 type="text"
                 id="titulo"
@@ -68,11 +71,17 @@ const CriarPost = ({ navigate }) => {
                 required
                 maxLength={100}
                 className="form-control"
+                placeholder="Digite o título da sua receita"
               />
+              <div className="character-count">
+                {formData.titulo.length}/100 caracteres
+              </div>
             </div>
 
             <div className="form-group">
-              <label htmlFor="conteudo">Conteúdo</label>
+              <label htmlFor="conteudo">
+                Conteúdo <span className="required-star">*</span>
+              </label>
               <textarea
                 id="conteudo"
                 name="conteudo"
@@ -81,34 +90,29 @@ const CriarPost = ({ navigate }) => {
                 required
                 rows={10}
                 className="form-control"
+                placeholder="Descreva os ingredientes e o modo de preparo..."
               />
             </div>
 
-            {error && <p className="error-message">{error}</p>}
-
-            <div className="button-group">
+            <div className="action-buttons">
               <button 
                 type="button" 
                 onClick={() => navigate('/')}
-                className="logout-button"
+                className="draft-button"
               >
                 Cancelar
               </button>
               <button 
                 type="submit" 
-                className="create-post-button"
+                className="publish-button"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Publicando...' : 'Publicar'}
               </button>
             </div>
           </form>
-        </section>
-      </main>
-
-      <footer className="footer">
-        <p>&copy; {new Date().getFullYear()} Tempero Compartilhado. Todos os direitos reservados.</p>
-      </footer>
+        </div>
+      </div>
     </div>
   );
 };
