@@ -248,6 +248,9 @@ const Home = ({ navigate }) => {
         </div>
         <div className="user-menu">
           <span className="welcome-message">Olá, {user?.nome?.split(' ')[0]}</span>
+          <button className="edit-profile-button" onClick={() => navigate('/editar-perfil')}>
+            Editar Perfil
+          </button>
           <button className="logout-button" onClick={handleLogout}>
             Sair
           </button>

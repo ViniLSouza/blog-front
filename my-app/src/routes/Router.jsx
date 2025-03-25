@@ -4,6 +4,7 @@ import Login from '../pages/Login/Login';
 import Cadastro from '../pages/Cadastro/Cadastro';
 import Home from '../pages/Home/Home';
 import CriarPost from '../pages/CriarPost/CriarPost';
+import EditarPerfil from '../pages/EditarPerfil/EditarPerfil';
 
 /**
  * Componente de roteamento simplificado
@@ -59,6 +60,8 @@ const Router = () => {
         return <Home navigate={navigate} />;
       case '/criar-post':
         return <CriarPost navigate={navigate} />;
+      case '/editar-perfil':
+        return <EditarPerfil navigate={navigate} />;
       default:
         navigate('/');
         return null;
