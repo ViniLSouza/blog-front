@@ -1,117 +1,161 @@
+/**
+ * Importação da fonte Poppins do Google Fonts
+ * Inclui as variações de peso: 300 (light), 400 (regular), 500 (medium), 
+ * 600 (semibold) e 700 (bold)
+ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/**
+ * Variáveis globais CSS definidas na raiz do documento
+ * Estas variáveis podem ser acessadas em qualquer parte da aplicação
+ */
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Paleta de cores principal */
+  --primary-color: #FF6B6B;    /* Cor principal - Light Coral */
+  --primary-hover: #ff5252;    /* Cor para estados hover */
+  --white: #FFFFFF;            /* Branco puro */
+  --black: #000000;            /* Preto puro */
+  --light-grey: #D3D3D3;       /* Cinza claro para bordas e elementos secundários */
+  --background: #f8f9fa;       /* Cor de fundo padrão */
+  --text-primary: #213547;     /* Cor principal para textos */
+  --text-secondary: #666;      /* Cor secundária para textos */
 
-  color-scheme: light dark;
-  color: #213547;
-  background-color: #f0f2f5;
+  /* Configurações de tipografia */
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;            /* Altura da linha para melhor legibilidade */
+  font-weight: 400;            /* Peso da fonte padrão (regular) */
 
+  /* Configurações globais de cor */
+  color: var(--text-primary);
+  background-color: var(--background);
+
+  /* Otimizações de renderização de fonte */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/**
+ * Reset CSS básico
+ * Garante que todos os elementos comecem com as mesmas propriedades básicas
+ */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/**
+ * Estilos base para o body
+ * Define as dimensões mínimas e comportamento de overflow
+ */
 body {
   margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
+  min-width: 320px;           /* Largura mínima para evitar layouts muito estreitos */
+  min-height: 100vh;          /* Altura mínima para ocupar toda a viewport */
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: hidden;         /* Previne scroll horizontal */
 }
 
+/**
+ * Estilos para o elemento root do React
+ * Garante que a aplicação ocupe toda a altura da viewport
+ */
 #root {
   width: 100%;
   min-height: 100vh;
+}
+
+/**
+ * Container principal da aplicação
+ * Utiliza flexbox para garantir que o conteúdo ocupe toda a altura
+ */
+.app {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--background);
 }
 
-h1 {
-  font-size: 2.2em;
-  line-height: 1.1;
-}
-
-button {
+/**
+ * Estilos base para campos de entrada
+ * Define a aparência padrão para inputs e textareas
+ */
+input, 
+textarea {
+  font-family: inherit;
+  color: var(--text-primary);
+  background-color: var(--white);
+  border: 1px solid var(--light-grey);
   border-radius: 4px;
-  border: 1px solid transparent;
+  padding: 0.6em 1em;
+  font-size: 1em;
+  transition: border-color 0.2s;
+}
+
+/**
+ * Estados de foco para campos de entrada
+ * Melhora a acessibilidade e feedback visual
+ */
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/**
+ * Estilo para placeholders
+ * Define a cor do texto de placeholder
+ */
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+/**
+ * Estilos base para botões
+ * Define a aparência padrão para todos os botões
+ */
+button {
+  font-family: inherit;
+  border: none;
+  border-radius: 4px;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #4a90e2;
-  color: white;
   cursor: pointer;
-  transition: border-color 0.25s, background-color 0.25s;
-}
-button:hover {
-  background-color: #3a7bc8;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: all 0.2s ease;
 }
 
+/**
+ * Estilos para links
+ * Define a aparência padrão e comportamento hover
+ */
 a {
-  color: #4a90e2;
+  color: var(--primary-color);
   text-decoration: none;
+  transition: all 0.2s ease;
 }
 
 a:hover {
   text-decoration: underline;
 }
 
-/* Estilos para inputs */
-input, textarea {
-  color: #000 !important;
-  background-color: #fff !important;
+/**
+ * Estilos para elementos code
+ * Define a fonte monoespaçada para código
+ */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-input::placeholder, textarea::placeholder {
-  color: #888 !important;
-}
-
-/* Estilos para a tela principal do app */
-.App {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Media query para modo escuro */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-  }
-  a {
-    color: #61dafb;
-  }
-  button {
-    background-color: #5395e8;
-  }
-  button:hover {
-    background-color: #448adb;
-  }
-}
-
-/* Responsividade */
+/**
+ * Media Queries para responsividade
+ * Ajusta elementos para telas menores
+ */
 @media (max-width: 768px) {
-  h1 {
-    font-size: 1.8em;
-  }
   button {
-    padding: 0.5em 1em;
+    padding: 0.5em 1em;      /* Reduz o padding dos botões em telas menores */
   }
 } 

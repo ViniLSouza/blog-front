@@ -1,4 +1,12 @@
-/* Estilos para a página de login */
+/**
+ * Estilos da página de login
+ * Define a aparência e o layout da página de autenticação
+ */
+
+/**
+ * Container principal
+ * Ocupa toda a altura da viewport e organiza o conteúdo em coluna
+ */
 .login-container {
   min-height: 100vh;
   display: flex;
@@ -7,6 +15,10 @@
   width: 100%;
 }
 
+/**
+ * Cabeçalho
+ * Contém o logo centralizado com fundo colorido
+ */
 .header {
   background-color: #ff6b6b;
   padding: 1rem 2rem;
@@ -17,6 +29,10 @@
   width: 100%;
 }
 
+/**
+ * Logo
+ * Estilização do título e ícone do blog
+ */
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
@@ -26,6 +42,10 @@
   gap: 0.5rem;
 }
 
+/**
+ * Conteúdo principal
+ * Centraliza o formulário na página
+ */
 .main-content {
   flex: 1;
   display: flex;
@@ -36,6 +56,10 @@
   box-sizing: border-box;
 }
 
+/**
+ * Formulário de login
+ * Card branco com sombra contendo os campos de entrada
+ */
 .login-form {
   background-color: white;
   padding: 2.5rem;
@@ -46,6 +70,10 @@
   margin: auto;
 }
 
+/**
+ * Título do formulário
+ * Cabeçalho "Login" centralizado
+ */
 .form-title {
   text-align: center;
   color: #343a40;
@@ -53,10 +81,18 @@
   font-size: 1.8rem;
 }
 
+/**
+ * Grupo de campos
+ * Container para label e input
+ */
 .form-group {
   margin-bottom: 1.5rem;
 }
 
+/**
+ * Labels dos campos
+ * Texto descritivo acima dos inputs
+ */
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
@@ -64,6 +100,10 @@
   font-weight: 500;
 }
 
+/**
+ * Campos de entrada
+ * Estilização dos inputs de email e senha
+ */
 .form-group input {
   width: 100%;
   padding: 0.75rem;
@@ -73,11 +113,19 @@
   transition: border-color 0.2s ease;
 }
 
+/**
+ * Estado de foco dos campos
+ * Destaque visual quando o campo está selecionado
+ */
 .form-group input:focus {
   outline: none;
   border-color: #ff6b6b;
 }
 
+/**
+ * Botão de submit
+ * Botão principal para enviar o formulário
+ */
 .submit-button {
   width: 100%;
   padding: 0.75rem;
@@ -91,27 +139,46 @@
   transition: all 0.2s ease;
 }
 
+/**
+ * Estado hover do botão
+ * Efeito visual ao passar o mouse
+ */
 .submit-button:hover {
   background-color: #ff5252;
   transform: translateY(-1px);
 }
 
+/**
+ * Link para cadastro
+ * Texto e link para a página de registro
+ */
 .register-link {
   text-align: center;
   margin-top: 1.5rem;
   color: #6c757d;
 }
 
+/**
+ * Estilo do link
+ * Cor e decoração do link de cadastro
+ */
 .register-link a {
   color: #ff6b6b;
   text-decoration: none;
   font-weight: 500;
 }
 
+/**
+ * Estado hover do link
+ */
 .register-link a:hover {
   text-decoration: underline;
 }
 
+/**
+ * Mensagem de erro
+ * Feedback visual para erros de autenticação
+ */
 .error-message {
   color: #dc3545;
   font-size: 0.875rem;
@@ -119,6 +186,10 @@
   text-align: center;
 }
 
+/**
+ * Rodapé
+ * Barra inferior com informações de copyright
+ */
 .footer {
   background-color: #343a40;
   color: white;
@@ -127,7 +198,10 @@
   width: 100%;
 }
 
-/* Responsividade */
+/**
+ * Responsividade
+ * Ajustes para diferentes tamanhos de tela
+ */
 @media (max-width: 768px) {
   .login-form {
     max-width: 90%;
@@ -158,11 +232,18 @@
   }
 }
 
-/* Estilos para a tela de sucesso */
+/**
+ * Tela de sucesso
+ * Estilos para a mensagem de sucesso após o login
+ */
 .success-container {
   text-align: center;
 }
 
+/**
+ * Ícone de sucesso
+ * Círculo verde com ícone de confirmação
+ */
 .success-icon {
   background-color: #e6f7ed;
   color: #28a745;
@@ -176,12 +257,20 @@
   margin: 0 auto 20px;
 }
 
+/**
+ * Container de botões
+ * Organização dos botões na tela de sucesso
+ */
 .success-buttons {
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
 }
 
+/**
+ * Estilos base para botões
+ * Propriedades comuns aos botões primário e secundário
+ */
 .primary-button,
 .secondary-button {
   flex: 1;
@@ -193,32 +282,53 @@
   transition: all 0.3s;
 }
 
+/**
+ * Botão primário
+ * Estilo do botão principal com fundo azul
+ */
 .primary-button {
   background-color: #4a90e2;
   color: white;
   border: none;
 }
 
+/**
+ * Botão secundário
+ * Estilo do botão alternativo com borda
+ */
 .secondary-button {
   background-color: white;
   color: #4a90e2;
   border: 1px solid #4a90e2;
 }
 
+/**
+ * Estado hover do botão primário
+ */
 .primary-button:hover {
   background-color: #3a7bc8;
 }
 
+/**
+ * Estado hover do botão secundário
+ */
 .secondary-button:hover {
   background-color: #f2f7ff;
 }
 
+/**
+ * Informações do usuário
+ * Texto com dados do usuário logado
+ */
 .user-info {
   color: #666;
   margin-bottom: 20px;
 }
 
-/* Responsividade */
+/**
+ * Responsividade da tela de sucesso
+ * Ajustes para telas menores
+ */
 @media (max-width: 480px) {
   .success-buttons {
     flex-direction: column;

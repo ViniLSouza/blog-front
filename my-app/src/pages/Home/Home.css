@@ -1,14 +1,42 @@
-/* Estilos para a página Home */
+/**
+ * Estilos da página Home
+ * Inclui todos os estilos necessários para o layout e componentes da página principal
+ */
+
+/* Importação da fonte Poppins do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/**
+ * Variáveis CSS globais
+ * Define as cores e fontes principais utilizadas na página
+ */
+:root {
+  font-family: 'Poppins', sans-serif;
+  --primary-color: #FF6B6B;    /* Cor principal - vermelho coral */
+  --primary-hover: #ff5252;    /* Cor para estados hover */
+  --white: #FFFFFF;            /* Branco puro */
+  --black: #000000;            /* Preto puro */
+  --light-grey: #D3D3D3;       /* Cinza claro para bordas e elementos secundários */
+}
+
+/**
+ * Container principal da página
+ * Ocupa toda a altura da viewport e organiza o conteúdo em coluna
+ */
 .home-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #f8f9fa;
+  background-color: var(--white);
   width: 100%;
 }
 
+/**
+ * Cabeçalho da página
+ * Contém o logo e o menu do usuário
+ */
 .header {
-  background-color: #ff6b6b;
+  background-color: var(--primary-color);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -17,16 +45,24 @@
   width: 100%;
 }
 
+/**
+ * Logo do site
+ * Inclui o ícone e o nome do blog
+ */
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: white;
+  color: var(--white);
   display: flex;
   align-items: center;
   gap: 0.5rem;
   white-space: nowrap;
 }
 
+/**
+ * Menu do usuário
+ * Contém a mensagem de boas-vindas e o botão de logout
+ */
 .user-menu {
   display: flex;
   align-items: center;
@@ -34,242 +70,682 @@
   white-space: nowrap;
 }
 
+/**
+ * Mensagem de boas-vindas
+ * Exibe o nome do usuário logado
+ */
 .welcome-message {
-  color: white;
+  color: var(--white);
   white-space: nowrap;
 }
 
-.logout-button {
+/**
+ * Estilo base para botões
+ * Define as propriedades comuns a todos os botões
+ */
+.button-base {
   padding: 0.5rem 1rem;
-  background-color: white;
-  border: none;
   border-radius: 4px;
-  color: #ff6b6b;
+  font-size: 0.875rem;
   cursor: pointer;
-  font-weight: bold;
   transition: all 0.2s ease;
 }
 
+/**
+ * Botão de logout
+ * Estilização específica para o botão de sair
+ */
+.logout-button {
+  composes: button-base;
+  background-color: var(--white);
+  border: none;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+/**
+ * Estado hover do botão de logout
+ */
 .logout-button:hover {
-  background-color: #f8f9fa;
+  background-color: var(--light-grey);
   transform: translateY(-1px);
 }
 
+/**
+ * Conteúdo principal
+ * Container que centraliza e limita a largura do conteúdo
+ */
 .main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
   padding: 2rem;
+  box-sizing: border-box;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/**
+ * Seção de criação de post
+ * Contém o formulário para criar novas publicações
+ */
+.create-post-section {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+/**
+ * Formulário de post
+ * Estilização do card que contém os campos de entrada
+ */
+.post-form {
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  width: 100%;
   box-sizing: border-box;
 }
 
-.welcome-section {
-  text-align: center;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2.5rem;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.welcome-section h1 {
-  color: #343a40;
+/**
+ * Grupo de campos do formulário
+ * Adiciona espaçamento entre os campos
+ */
+.form-group {
   margin-bottom: 1rem;
-  font-size: 2.5rem;
 }
 
-.subtitle {
-  color: #6c757d;
-  font-size: 1.2rem;
-  line-height: 1.6;
-}
-
-.posts-section {
-  margin-bottom: 40px;
-}
-
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.section-header h2 {
-  font-size: 24px;
-  color: #333;
-  margin: 0;
-}
-
-.new-post-button {
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-  padding: 8px 16px;
+/**
+ * Campos de entrada
+ * Estilização comum para inputs e textareas
+ */
+.form-control {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--light-grey);
   border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  width: auto;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
 }
 
-.new-post-button:hover {
-  background-color: #3a7bc8;
+/**
+ * Estado de foco dos campos
+ * Destaca o campo quando selecionado
+ */
+.form-control:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(240, 128, 128, 0.2);
 }
 
-.loading {
-  text-align: center;
-  padding: 40px;
-  color: #666;
-  font-size: 16px;
+/**
+ * Área de texto
+ * Configurações específicas para o campo de conteúdo
+ */
+textarea.form-control {
+  resize: vertical;
+  min-height: 100px;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
+/**
+ * Seção de posts
+ * Container para a lista de publicações
+ */
+.posts-section {
+  width: 100%;
+}
+
+/**
+ * Grid de posts
+ * Organiza os posts em uma coluna vertical
+ */
 .posts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
 }
 
+/**
+ * Card de post
+ * Estilização do container de cada publicação
+ */
 .post-card {
-  background-color: white;
+  background-color: var(--white);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 1.5rem;
   transition: transform 0.3s, box-shadow 0.3s;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--light-grey);
 }
 
+/**
+ * Efeito hover no card
+ * Eleva o card quando o mouse passa por cima
+ */
 .post-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
+/**
+ * Título do post
+ * Estilização do cabeçalho da publicação
+ */
 .post-title {
-  font-size: 18px;
-  margin-top: 0;
-  margin-bottom: 10px;
-  color: #333;
+  font-size: 1.25rem;
+  margin: 0 0 1rem 0;
+  color: var(--black);
 }
 
-.post-excerpt {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 15px;
+/**
+ * Conteúdo do post
+ * Formatação do texto da publicação
+ */
+.post-content {
+  color: var(--black);
+  margin-bottom: 0;
   line-height: 1.5;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  white-space: pre-wrap;
 }
 
+/**
+ * Metadados do post
+ * Informações sobre autor e data
+ */
 .post-meta {
   display: flex;
   justify-content: space-between;
-  color: #888;
-  font-size: 12px;
-  margin-bottom: 15px;
+  align-items: center;
+  color: var(--black);
+  font-size: 0.875rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--light-grey);
 }
 
-.read-more {
-  background-color: transparent;
-  color: #4a90e2;
-  border: 1px solid #4a90e2;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.3s;
+/**
+ * Container dos metadados à direita
+ * Organiza data e botões de ação
+ */
+.post-meta-right {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: 24px;
+  flex-direction: row-reverse;
+  white-space: nowrap;
+}
+
+/**
+ * Elementos de texto nos metadados
+ * Estilização comum para textos de autor e data
+ */
+.post-meta span {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+}
+
+/**
+ * Nome do autor
+ * Destaque para o nome do autor do post
+ */
+.post-meta span:first-child {
+  font-weight: 500;
+  color: var(--black);
+}
+
+/**
+ * Data do post
+ * Estilo para a data de publicação
+ */
+.post-meta span:last-child {
+  color: var(--black);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+/**
+ * Botão de publicar
+ * Estilo do botão principal de envio do formulário
+ */
+.publish-button {
+  composes: button-base;
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-weight: bold;
   width: auto;
-  text-align: center;
+  float: right;
 }
 
-.read-more:hover {
-  background-color: #4a90e2;
-  color: white;
+/**
+ * Estado hover do botão de publicar
+ */
+.publish-button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
 }
 
-.footer {
-  background-color: #343a40;
-  color: white;
-  text-align: center;
-  padding: 1rem;
+/**
+ * Estado desabilitado do botão de publicar
+ */
+.publish-button:disabled {
+  background-color: var(--light-grey);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/**
+ * Botão de edição
+ * Botão que aparece no card do post para editar
+ */
+.edit-button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  opacity: 0;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+/**
+ * Exibição do botão de edição
+ * Torna o botão visível quando o mouse passa sobre o card
+ */
+.post-card:hover .edit-button {
+  opacity: 1;
+}
+
+/**
+ * Estado hover do botão de edição
+ */
+.edit-button:hover {
+  transform: scale(1.1);
+}
+
+/**
+ * Container da área de texto
+ * Organiza o campo de texto e seus elementos auxiliares
+ */
+.textarea-container {
+  position: relative;
   width: 100%;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-  .header {
-    padding: 1rem;
-    text-align: center;
-  }
+/**
+ * Rodapé da área de texto
+ * Contém o contador de caracteres e o botão de emoji
+ */
+.textarea-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
 
-  .user-menu {
-    gap: 0.5rem;
-  }
+/**
+ * Botão de emoji
+ * Permite adicionar emojis ao texto
+ */
+.emoji-button {
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+  opacity: 0.6;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
 
-  .welcome-section {
-    max-width: 90%;
-    padding: 2rem;
-  }
+/**
+ * Estado hover do botão de emoji
+ */
+.emoji-button:hover {
+  opacity: 1;
+}
 
-  .welcome-section h1 {
-    font-size: 2rem;
-  }
+/**
+ * Contador de caracteres
+ * Exibe o número de caracteres digitados
+ */
+.character-count {
+  font-size: 0.75rem;
+  color: var(--black);
+}
 
-  .subtitle {
-    font-size: 1.1rem;
+/**
+ * Seletor de emojis
+ * Menu flutuante com opções de emojis
+ */
+.emoji-picker {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 5px);
+  background-color: var(--white);
+  border: 1px solid var(--light-grey);
+  border-radius: 4px;
+  padding: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * Opção de emoji
+ * Botão individual para cada emoji disponível
+ */
+.emoji-option {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: transform 0.2s ease;
+}
+
+/**
+ * Estado hover da opção de emoji
+ */
+.emoji-option:hover {
+  transform: scale(1.2);
+}
+
+/**
+ * Overlay do modal
+ * Fundo escuro que cobre a página quando o modal está aberto
+ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: modal-appear 0.3s ease;
+}
+
+/**
+ * Modal
+ * Container principal do modal de edição/exclusão
+ */
+.modal {
+  background-color: var(--white);
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: modal-appear 0.3s ease;
+}
+
+/**
+ * Modal de exclusão
+ * Variação do modal para confirmação de exclusão
+ */
+.delete-modal {
+  max-width: 400px;
+}
+
+/**
+ * Corpo do modal de exclusão
+ * Espaçamento e alinhamento do texto de confirmação
+ */
+.modal-body {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+/**
+ * Texto de aviso
+ * Mensagem de alerta sobre a ação irreversível
+ */
+.delete-warning {
+  color: #dc3545;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/**
+ * Rodapé do modal de exclusão
+ * Organização dos botões de ação
+ */
+.modal-footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  border-top: 1px solid var(--light-grey);
+}
+
+/**
+ * Animação de aparecimento do modal
+ */
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (max-width: 480px) {
-  .welcome-section {
-    max-width: 100%;
-    padding: 1.5rem;
-    margin: 1rem;
+/**
+ * Cabeçalho do modal
+ * Contém o título e o botão de fechar
+ */
+.modal-header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--light-grey);
+}
+
+/**
+ * Título do modal
+ */
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--black);
+}
+
+/**
+ * Botão de fechar modal
+ */
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  color: var(--black);
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+/**
+ * Estado hover do botão de fechar
+ */
+.close-button:hover {
+  opacity: 1;
+}
+
+/**
+ * Botões de ação do modal
+ * Container para os botões de salvar e cancelar
+ */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/**
+ * Botão de salvar
+ * Estilo do botão principal de confirmação
+ */
+.save-button {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/**
+ * Estado hover do botão de salvar
+ */
+.save-button:hover {
+  background-color: var(--primary-hover);
+}
+
+/**
+ * Estado desabilitado do botão de salvar
+ */
+.save-button:disabled {
+  background-color: var(--light-grey);
+  cursor: not-allowed;
+}
+
+/**
+ * Botão de cancelar
+ * Estilo do botão secundário
+ */
+.cancel-button {
+  background-color: transparent;
+  color: var(--black);
+  border: 1px solid var(--light-grey);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/**
+ * Estado hover do botão de cancelar
+ */
+.cancel-button:hover {
+  background-color: var(--light-grey);
+}
+
+/**
+ * Botão de excluir
+ * Estilo do botão de ação destrutiva
+ */
+.delete-button {
+  background-color: #dc3545;
+  color: var(--white);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/**
+ * Estado hover do botão de excluir
+ */
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+/**
+ * Indicador de carregamento
+ * Estilo para mensagens de loading e erro
+ */
+.loading,
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  color: var(--black);
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * Mensagem de erro
+ * Destaque visual para mensagens de erro
+ */
+.error-message {
+  color: #dc3545;
+  border: 1px solid #dc3545;
+}
+
+/**
+ * Rodapé da página
+ * Espaçamento e alinhamento do footer
+ */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--white);
+  border-top: 1px solid var(--light-grey);
+  margin-top: auto;
+}
+
+/**
+ * Media Queries para responsividade
+ */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
   }
 
   .main-content {
     padding: 1rem;
   }
+}
 
-  .welcome-section h1 {
-    font-size: 1.8rem;
-  }
-
-  .subtitle {
-    font-size: 1rem;
-  }
-
+@media (max-width: 480px) {
   .logo {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
   }
 
   .logout-button {
     padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
-  }
-
-  .posts-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .section-header h2 {
-    margin-bottom: 10px;
+    font-size: 0.8rem;
   }
 }
 
 @media (max-height: 600px) {
   .main-content {
-    height: calc(100vh - 100px);
     padding: 1rem;
-  }
-
-  .welcome-section {
-    padding: 1.5rem;
   }
 } 

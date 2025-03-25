@@ -1,4 +1,4 @@
-import { API_URL } from '../utils/constants';
+import { apiService } from './apiService';
 
 /**
  * Serviço para gerenciar autenticação de usuários
@@ -11,58 +11,10 @@ export const authService = {
    */
   async cadastrar(userData) {
     try {
-      console.log('Tentando cadastrar usuário:', userData.email);
-      console.log('URL de cadastro:', `${API_URL}/usuarios/cadastro`);
-      
-      const response = await fetch(`${API_URL}/usuarios/cadastro`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-      });
-      
-      console.log('Status da resposta de cadastro:', response.status);
-      console.log('Headers da resposta:', [...response.headers.entries()]);
-      
-      // Verifica se o content-type da resposta é JSON
-      const contentType = response.headers.get('content-type');
-      console.log('Content-Type da resposta:', contentType);
-      
-      let responseData;
-      let responseText;
-      
-      try {
-        // Tentar ler o corpo da resposta como texto primeiro
-        responseText = await response.text();
-        console.log('Corpo da resposta (texto):', responseText);
-        
-        // Se parece ser JSON, fazer o parse
-        if (responseText && (responseText.startsWith('{') || responseText.startsWith('['))) {
-          responseData = JSON.parse(responseText);
-          console.log('Corpo da resposta (JSON):', responseData);
-        }
-      } catch (parseError) {
-        console.error('Erro ao fazer parse da resposta:', parseError);
-      }
-      
-      if (!response.ok) {
-        throw {
-          status: response.status,
-          message: responseData?.erro || 'Erro ao cadastrar usuário',
-          data: responseData
-        };
-      }
-      
-      return responseData || { success: true };
+      const response = await apiService.post('/usuarios/cadastro', userData);
+      return response;
     } catch (error) {
       console.error('Erro na requisição de cadastro:', error);
-      // Se for um erro de rede, retorna uma mensagem amigável
-      if (!error.status) {
-        throw {
-          message: 'Não foi possível conectar ao servidor. Verifique sua conexão e se o backend está rodando.',
-        };
-      }
       throw error;
     }
   },
@@ -75,68 +27,16 @@ export const authService = {
    */
   async login(email, senha) {
     try {
-      console.log('Tentando login com email:', email);
-      console.log('URL de login:', `${API_URL}/usuarios/login`);
+      const response = await apiService.post('/usuarios/login', { email, senha });
       
-      const response = await fetch(`${API_URL}/usuarios/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, senha })
-      });
-      
-      console.log('Status da resposta de login:', response.status);
-      console.log('Headers da resposta:', [...response.headers.entries()]);
-      
-      // Verifica se o content-type da resposta é JSON
-      const contentType = response.headers.get('content-type');
-      console.log('Content-Type da resposta:', contentType);
-      
-      let responseData;
-      let responseText;
-      
-      try {
-        // Tentar ler o corpo da resposta como texto primeiro
-        responseText = await response.text();
-        console.log('Corpo da resposta (texto):', responseText);
-        
-        // Se parece ser JSON, fazer o parse
-        if (responseText && (responseText.startsWith('{') || responseText.startsWith('['))) {
-          responseData = JSON.parse(responseText);
-          console.log('Corpo da resposta (JSON):', responseData);
-        }
-      } catch (parseError) {
-        console.error('Erro ao fazer parse da resposta:', parseError);
+      if (!response.token) {
+        throw new Error('O servidor não retornou dados de autenticação válidos');
       }
       
-      if (!response.ok) {
-        throw {
-          status: response.status,
-          message: responseData?.erro || 'Erro ao fazer login',
-          data: responseData
-        };
-      }
-      
-      if (!responseData || !responseData.token) {
-        throw {
-          status: response.status,
-          message: 'O servidor não retornou dados de autenticação válidos',
-        };
-      }
-      
-      // Salvar dados do usuário e token na localStorage
-      this.setAuthData(responseData.token, responseData.usuario);
-      
-      return responseData.usuario;
+      this.setAuthData(response.token, response.usuario);
+      return response.usuario;
     } catch (error) {
       console.error('Erro na requisição de login:', error);
-      // Se for um erro de rede, retorna uma mensagem amigável
-      if (!error.status) {
-        throw {
-          message: 'Não foi possível conectar ao servidor. Verifique sua conexão e se o backend está rodando.',
-        };
-      }
       throw error;
     }
   },
