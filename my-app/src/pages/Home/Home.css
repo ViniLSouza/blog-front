@@ -91,7 +91,7 @@
  */
 .main-content {
   flex: 1;
-  max-width: 600px;
+  max-width: 1000px;
   margin: 2rem auto;
   padding: 0 1rem;
   width: 100%;
@@ -183,6 +183,18 @@ textarea.form-control {
   background-color: var(--grey-100);
   border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
   margin-top: -8px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .emoji-button {
@@ -288,7 +300,7 @@ textarea.form-control {
 .post-content {
   color: var(--grey-700);
   line-height: 1.6;
-  margin-top: 0.75rem;
+  margin: 0.75rem 0;
   white-space: pre-wrap;
   word-wrap: break-word;
 }
@@ -479,25 +491,60 @@ textarea.form-control {
  */
 .delete-modal {
   max-width: 400px;
+  animation: modalFadeIn 0.3s ease;
+}
+
+.delete-modal .modal-header h2 {
+  color: var(--danger);
 }
 
 .delete-modal .modal-body {
   text-align: center;
+  padding: 2rem 1.5rem;
 }
 
 .delete-modal .modal-body p {
   color: var(--grey-700);
   margin: 0.5rem 0;
+  line-height: 1.5;
 }
 
 .delete-modal .modal-body p:first-child {
   font-weight: 500;
   color: var(--grey-800);
+  font-size: 1.1rem;
 }
 
 .delete-modal .modal-footer {
   justify-content: center;
   gap: 1rem;
+  padding: 1.5rem;
+}
+
+.delete-modal .action-buttons {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.delete-modal .cancel-button,
+.delete-modal .delete-button {
+  min-width: 120px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.delete-modal .delete-button {
+  background-color: var(--danger);
+  color: var(--white);
+  border: none;
+}
+
+.delete-modal .delete-button:hover {
+  background-color: var(--danger-dark);
+  transform: translateY(-1px);
 }
 
 /**
@@ -589,13 +636,31 @@ textarea.form-control {
   .footer {
     padding: 1rem;
   }
+
+  .delete-modal {
+    width: 90%;
+    margin: 1rem;
+  }
+
+  .delete-modal .action-buttons {
+    flex-direction: column;
+  }
+
+  .delete-modal .cancel-button,
+  .delete-modal .delete-button {
+    width: 100%;
+  }
 }
 
 .post-footer {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--grey-200);
+  background-color: var(--grey-100);
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  padding: 0 1.5rem;
 }
 
 .like-button {
@@ -638,4 +703,353 @@ textarea.form-control {
   font-size: 0.9rem;
   min-width: 2rem;
   text-align: left;
+}
+
+.comentarios-section {
+  border-top: 1px solid var(--border-color);
+}
+
+.comentarios-header {
+  margin: 0;
+}
+
+.comentarios-header h3 {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  margin: 0;
+  padding: 1rem 0;
+}
+
+.novo-comentario {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  align-items: flex-start;
+}
+
+.novo-comentario .textarea-container {
+  flex: 1;
+  position: relative;
+}
+
+.novo-comentario textarea {
+  width: 100%;
+  min-height: 44px;
+  height: 44px;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--grey-200);
+  border-radius: var(--border-radius-md);
+  resize: none;
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  background-color: var(--grey-100);
+  color: var(--grey-800);
+  transition: all var(--transition-fast);
+  overflow: hidden;
+  line-height: 1.5;
+}
+
+.novo-comentario textarea:focus {
+  border-color: var(--primary-color);
+  background-color: var(--white);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+.novo-comentario .textarea-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.25rem;
+  padding: 0 0.25rem;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.novo-comentario .emoji-button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.novo-comentario .emoji-button:hover {
+  background-color: var(--grey-200);
+  transform: scale(1.1);
+}
+
+.novo-comentario .character-count {
+  font-size: 0.8rem;
+  color: var(--grey-600);
+}
+
+.novo-comentario .emoji-picker {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 0;
+  background-color: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--border-radius-md);
+  padding: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 150px;
+  animation: fadeIn 0.2s ease;
+}
+
+.novo-comentario .emoji-option {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.novo-comentario .emoji-option:hover {
+  background-color: var(--grey-100);
+  transform: scale(1.2);
+}
+
+.novo-comentario button[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.novo-comentario button {
+  margin-top: 2px;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  min-width: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+}
+
+.novo-comentario button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.novo-comentario button:disabled {
+  background-color: var(--grey-400);
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.7;
+  visibility: visible;
+}
+
+.comentarios-lista {
+  max-height: 300px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  border: 1px solid var(--grey-200);
+  border-radius: var(--border-radius-md);
+  margin: 1rem 0;
+}
+
+.comentarios-lista.expandido {
+  max-height: none;
+}
+
+.comentario-item {
+  padding: 1rem;
+  border-bottom: 1px solid var(--grey-200);
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--white);
+  transition: background-color 0.2s ease;
+}
+
+.comentario-item:last-child {
+  border-bottom: none;
+}
+
+.comentario-item:hover {
+  background-color: var(--grey-100);
+}
+
+.comentario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.comentario-autor {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.comentario-data {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.comentario-texto {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--text-color);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  padding-right: 0.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.deletar-comentario {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comentario-item:hover .deletar-comentario {
+  opacity: 0.6;
+}
+
+.deletar-comentario:hover {
+  opacity: 1 !important;
+  background-color: var(--grey-200);
+}
+
+.ver-mais-comentarios {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ver-mais-comentarios:hover {
+  background-color: var(--hover-color);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.emoji-picker,
+.novo-comentario .emoji-picker {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 0;
+  background-color: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--border-radius-md);
+  padding: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 150px;
+  animation: fadeIn 0.2s ease;
+}
+
+.emoji-option,
+.novo-comentario .emoji-option {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.emoji-option:hover,
+.novo-comentario .emoji-option:hover {
+  background-color: var(--grey-100);
+  transform: scale(1.2);
+}
+
+.emoji-button,
+.novo-comentario .emoji-button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emoji-button:hover,
+.novo-comentario .emoji-button:hover {
+  opacity: 1;
+  background-color: var(--grey-200);
+  transform: scale(1.1);
+}
+
+.textarea-footer,
+.novo-comentario .textarea-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.25rem;
+  padding: 0 0.25rem;
+}
+
+.character-count,
+.novo-comentario .character-count {
+  font-size: 0.8rem;
+  color: var(--grey-600);
 } 

@@ -21,6 +21,13 @@ const Home = ({ navigate }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [curtidas, setCurtidas] = useState({});
+  const [comentarios, setComentarios] = useState({});
+  const [comentariosExpandidos, setComentariosExpandidos] = useState({});
+  const [novosComentarios, setNovosComentarios] = useState({});
+  const [comentarioParaExcluir, setComentarioParaExcluir] = useState(null);
+  const [modalExcluirComentarioAberto, setModalExcluirComentarioAberto] = useState(false);
+  const [emojiPickerComentario, setEmojiPickerComentario] = useState(null);
+  const [textareaFocado, setTextareaFocado] = useState(null);
 
   // Estados para o formulário de criação de post
   const [formData, setFormData] = useState({
@@ -45,6 +52,8 @@ const Home = ({ navigate }) => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [postToDelete, setPostToDelete] = useState(null);
 
+  const MAX_COMENTARIO_LENGTH = 1000;
+
   /**
    * Carrega os posts ao montar o componente
    */
@@ -60,25 +69,36 @@ const Home = ({ navigate }) => {
       const response = await apiService.get('/posts');
       setPosts(response);
       
-      // Buscar curtidas de cada post
+      // Buscar curtidas e comentários de cada post
       const curtidasMap = {};
+      const comentariosMap = {};
+      
       for (const post of response) {
         try {
+          // Buscar curtidas
           const curtidasResponse = await apiService.get(`/curtidas/contar/${post.id}`);
           const verificarResponse = await apiService.get(`/curtidas/verificar/${post.id}`);
           curtidasMap[post.id] = {
             total: curtidasResponse.total,
             curtiu: verificarResponse.curtiu
           };
+
+          // Buscar comentários
+          const comentariosResponse = await apiService.get(`/comentarios/post/${post.id}`);
+          comentariosMap[post.id] = comentariosResponse;
         } catch (error) {
-          console.error(`Erro ao buscar curtidas do post ${post.id}:`, error);
+          console.error(`Erro ao buscar dados do post ${post.id}:`, error);
           curtidasMap[post.id] = { total: 0, curtiu: false };
+          comentariosMap[post.id] = [];
         }
       }
+      
       setCurtidas(curtidasMap);
+      setComentarios(comentariosMap);
       
       console.log('Posts recebidos:', response);
       console.log('Curtidas recebidas:', curtidasMap);
+      console.log('Comentários recebidos:', comentariosMap);
     } catch (error) {
       setError('Erro ao carregar os posts');
       console.error('Erro ao buscar posts:', error);
@@ -316,6 +336,98 @@ const Home = ({ navigate }) => {
     }
   };
 
+  const handleComentar = async (postId, event) => {
+    const comentarioTexto = novosComentarios[postId] || '';
+    if (!comentarioTexto.trim()) return;
+
+    try {
+      const response = await apiService.post('/comentarios', {
+        comentario: comentarioTexto,
+        postId
+      });
+
+      setComentarios(prev => ({
+        ...prev,
+        [postId]: [response, ...prev[postId]]
+      }));
+
+      // Limpar apenas o comentário do post específico
+      setNovosComentarios(prev => ({
+        ...prev,
+        [postId]: ''
+      }));
+      
+      // Resetar altura do textarea
+      const textarea = event.target.closest('.novo-comentario').querySelector('textarea');
+      textarea.style.height = '44px';
+    } catch (error) {
+      console.error('Erro ao adicionar comentário:', error);
+      setError('Erro ao adicionar comentário. Por favor, tente novamente.');
+    }
+  };
+
+  const handleComentarioChange = (postId, value) => {
+    if (value.length <= MAX_COMENTARIO_LENGTH) {
+      setNovosComentarios(prev => ({
+        ...prev,
+        [postId]: value
+      }));
+    }
+  };
+
+  const handleEmojiClickComentario = (postId, emoji) => {
+    const comentarioAtual = novosComentarios[postId] || '';
+    const novoComentario = comentarioAtual + emoji;
+    
+    if (novoComentario.length <= MAX_COMENTARIO_LENGTH) {
+      setNovosComentarios(prev => ({
+        ...prev,
+        [postId]: novoComentario
+      }));
+    }
+    setEmojiPickerComentario(null);
+  };
+
+  const handleDeletarComentario = async (postId, comentarioId) => {
+    try {
+      await apiService.delete(`/comentarios/${comentarioId}`);
+      
+      setComentarios(prev => ({
+        ...prev,
+        [postId]: prev[postId].filter(c => c.id !== comentarioId)
+      }));
+
+      setModalExcluirComentarioAberto(false);
+      setComentarioParaExcluir(null);
+    } catch (error) {
+      console.error('Erro ao deletar comentário:', error);
+      setError('Erro ao deletar comentário. Por favor, tente novamente.');
+    }
+  };
+
+  const abrirModalExcluirComentario = (postId, comentarioId) => {
+    setComentarioParaExcluir({ postId, comentarioId });
+    setModalExcluirComentarioAberto(true);
+  };
+
+  const fecharModalExcluirComentario = () => {
+    setModalExcluirComentarioAberto(false);
+    setComentarioParaExcluir(null);
+  };
+
+  const toggleComentariosExpandidos = (postId) => {
+    setComentariosExpandidos(prev => ({
+      ...prev,
+      [postId]: !prev[postId]
+    }));
+  };
+
+  const handleTextareaInput = (e) => {
+    const textarea = e.target;
+    textarea.style.height = '44px';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  };
+
   return (
     <div className="home-container">
       {/* Cabeçalho com logo e menu do usuário */}
@@ -377,6 +489,7 @@ const Home = ({ navigate }) => {
                     className="emoji-button"
                     onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                     title="Adicionar emoji"
+                    onMouseDown={(e) => e.preventDefault()} // Previne o onBlur do textarea
                   >
                     😊
                   </button>
@@ -386,7 +499,10 @@ const Home = ({ navigate }) => {
                 </div>
                 {/* Seletor de emojis */}
                 {showEmojiPicker && (
-                  <div className="emoji-picker">
+                  <div 
+                    className="emoji-picker"
+                    onMouseDown={(e) => e.preventDefault()} // Previne o onBlur do textarea
+                  >
                     {emojis.map((emoji, index) => (
                       <button
                         key={index}
@@ -447,6 +563,110 @@ const Home = ({ navigate }) => {
                     </span>
                     <span className="like-count">{curtidas[post.id]?.total || 0}</span>
                   </button>
+                </div>
+                <div className="comentarios-section">
+                  <div className="comentarios-header">
+                    <h3>Comentários</h3>
+                  </div>
+                  
+                  <div className="novo-comentario">
+                    <div className="textarea-container">
+                      <textarea
+                        value={novosComentarios[post.id] || ''}
+                        onChange={(e) => {
+                          handleComentarioChange(post.id, e.target.value);
+                          handleTextareaInput(e);
+                        }}
+                        placeholder="Adicione um comentário..."
+                        onInput={handleTextareaInput}
+                        onFocus={() => setTextareaFocado(post.id)}
+                        onBlur={(e) => {
+                          // Verifica se o clique foi dentro do emoji picker ou no botão de emoji
+                          const relatedTarget = e.relatedTarget;
+                          const emojiPicker = e.target.closest('.novo-comentario').querySelector('.emoji-picker');
+                          const emojiButton = e.target.closest('.novo-comentario').querySelector('.emoji-button');
+                          
+                          if (!relatedTarget || 
+                              (!emojiPicker?.contains(relatedTarget) && 
+                               relatedTarget !== emojiButton && 
+                               !emojiButton?.contains(relatedTarget))) {
+                            setTextareaFocado(null);
+                            setEmojiPickerComentario(null);
+                          }
+                        }}
+                      />
+                      {textareaFocado === post.id && (
+                        <div className="textarea-footer">
+                          <button 
+                            type="button" 
+                            className="emoji-button"
+                            onClick={() => setEmojiPickerComentario(emojiPickerComentario === post.id ? null : post.id)}
+                            title="Adicionar emoji"
+                            onMouseDown={(e) => e.preventDefault()} // Previne o onBlur do textarea
+                          >
+                            😊
+                          </button>
+                          <span className="character-count">
+                            {(novosComentarios[post.id] || '').length}/{MAX_COMENTARIO_LENGTH}
+                          </span>
+                        </div>
+                      )}
+                      {emojiPickerComentario === post.id && (
+                        <div 
+                          className="emoji-picker"
+                          onMouseDown={(e) => e.preventDefault()} // Previne o onBlur do textarea
+                        >
+                          {emojis.map((emoji, index) => (
+                            <button
+                              key={index}
+                              type="button"
+                              className="emoji-option"
+                              onClick={() => handleEmojiClickComentario(post.id, emoji)}
+                              onMouseDown={(e) => e.preventDefault()} // Previne o onBlur do textarea
+                            >
+                              {emoji}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <button 
+                      onClick={(e) => handleComentar(post.id, e)}
+                      disabled={!(novosComentarios[post.id] || '').trim()}
+                    >
+                      Comentar
+                    </button>
+                  </div>
+
+                  <div className={`comentarios-lista ${comentariosExpandidos[post.id] ? 'expandido' : ''}`}>
+                    {comentarios[post.id]?.map(comentario => (
+                      <div key={comentario.id} className="comentario-item">
+                        <div className="comentario-header">
+                          <span className="comentario-autor">{comentario.usuario.nome}</span>
+                          <span className="comentario-data">{formatDate(comentario.dataComentario)}</span>
+                        </div>
+                        <p className="comentario-texto">{comentario.comentario}</p>
+                        {(comentario.usuarioId === user.id || post.usuarioId === user.id) && (
+                          <button
+                            className="deletar-comentario"
+                            onClick={() => abrirModalExcluirComentario(post.id, comentario.id)}
+                            title="Deletar comentário"
+                          >
+                            🗑️
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  {comentarios[post.id]?.length > 3 && (
+                    <button
+                      className="ver-mais-comentarios"
+                      onClick={() => toggleComentariosExpandidos(post.id)}
+                    >
+                      {comentariosExpandidos[post.id] ? 'Ver menos' : 'Ver mais comentários'}
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
@@ -571,6 +791,40 @@ const Home = ({ navigate }) => {
               >
                 {loading ? 'Excluindo...' : 'Excluir'}
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de confirmação de exclusão de comentário */}
+      {modalExcluirComentarioAberto && (
+        <div className="modal-overlay">
+          <div className="modal delete-modal">
+            <div className="modal-header">
+              <h2>Excluir Comentário</h2>
+              <button className="close-button" onClick={fecharModalExcluirComentario}>
+                ×
+              </button>
+            </div>
+            <div className="modal-body">
+              <p>Tem certeza que deseja excluir este comentário?</p>
+              <p>Esta ação não poderá ser desfeita.</p>
+            </div>
+            <div className="modal-footer">
+              <div className="action-buttons">
+                <button className="cancel-button" onClick={fecharModalExcluirComentario}>
+                  Cancelar
+                </button>
+                <button 
+                  className="delete-button"
+                  onClick={() => comentarioParaExcluir && handleDeletarComentario(
+                    comentarioParaExcluir.postId,
+                    comentarioParaExcluir.comentarioId
+                  )}
+                >
+                  Excluir
+                </button>
+              </div>
             </div>
           </div>
         </div>
