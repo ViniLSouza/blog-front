@@ -20,6 +20,7 @@ const Home = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [curtidas, setCurtidas] = useState({});
 
   // Estados para o formulário de criação de post
   const [formData, setFormData] = useState({
@@ -52,13 +53,32 @@ const Home = ({ navigate }) => {
   }, []);
 
   /**
-   * Busca todos os posts da API
+   * Busca todos os posts e suas curtidas da API
    */
   const fetchPosts = async () => {
     try {
       const response = await apiService.get('/posts');
       setPosts(response);
+      
+      // Buscar curtidas de cada post
+      const curtidasMap = {};
+      for (const post of response) {
+        try {
+          const curtidasResponse = await apiService.get(`/curtidas/contar/${post.id}`);
+          const verificarResponse = await apiService.get(`/curtidas/verificar/${post.id}`);
+          curtidasMap[post.id] = {
+            total: curtidasResponse.total,
+            curtiu: verificarResponse.curtiu
+          };
+        } catch (error) {
+          console.error(`Erro ao buscar curtidas do post ${post.id}:`, error);
+          curtidasMap[post.id] = { total: 0, curtiu: false };
+        }
+      }
+      setCurtidas(curtidasMap);
+      
       console.log('Posts recebidos:', response);
+      console.log('Curtidas recebidas:', curtidasMap);
     } catch (error) {
       setError('Erro ao carregar os posts');
       console.error('Erro ao buscar posts:', error);
@@ -239,6 +259,63 @@ const Home = ({ navigate }) => {
     }
   };
 
+  /**
+   * Manipula a curtida de um post
+   * @param {number} postId - ID do post
+   */
+  const handleLike = async (postId) => {
+    try {
+      const jaCurtiu = curtidas[postId]?.curtiu;
+      
+      if (jaCurtiu) {
+        // Atualiza o estado otimisticamente
+        setCurtidas(prevCurtidas => ({
+          ...prevCurtidas,
+          [postId]: {
+            ...prevCurtidas[postId],
+            curtiu: false,
+            total: prevCurtidas[postId].total - 1
+          }
+        }));
+        
+        // Remove a curtida na API
+        const response = await apiService.delete(`/curtidas/${postId}`);
+        setCurtidas(prevCurtidas => ({
+          ...prevCurtidas,
+          [postId]: {
+            ...prevCurtidas[postId],
+            total: response.totalCurtidas
+          }
+        }));
+      } else {
+        // Atualiza o estado otimisticamente
+        setCurtidas(prevCurtidas => ({
+          ...prevCurtidas,
+          [postId]: {
+            ...prevCurtidas[postId],
+            curtiu: true,
+            total: prevCurtidas[postId].total + 1
+          }
+        }));
+        
+        // Adiciona a curtida na API
+        const response = await apiService.post('/curtidas', { postId });
+        setCurtidas(prevCurtidas => ({
+          ...prevCurtidas,
+          [postId]: {
+            ...prevCurtidas[postId],
+            total: response.totalCurtidas
+          }
+        }));
+      }
+    } catch (error) {
+      console.error('Erro ao curtir post:', error);
+      // Reverte o estado em caso de erro
+      fetchPosts();
+      setError('Erro ao curtir post. Por favor, tente novamente.');
+    }
+  };
+
   return (
     <div className="home-container">
       {/* Cabeçalho com logo e menu do usuário */}
@@ -359,6 +436,18 @@ const Home = ({ navigate }) => {
                 </div>
                 <h2 className="post-title">{post.titulo}</h2>
                 <p className="post-content">{post.conteudo}</p>
+                <div className="post-footer">
+                  <button
+                    className={`like-button ${curtidas[post.id]?.curtiu ? 'liked' : ''}`}
+                    onClick={() => handleLike(post.id)}
+                    aria-label="Curtir post"
+                  >
+                    <span className="like-icon">
+                      {curtidas[post.id]?.curtiu ? '❤️' : '🤍'}
+                    </span>
+                    <span className="like-count">{curtidas[post.id]?.total || 0}</span>
+                  </button>
+                </div>
               </div>
             ))}
           </div>

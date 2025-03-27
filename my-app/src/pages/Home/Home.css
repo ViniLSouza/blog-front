@@ -589,4 +589,53 @@ textarea.form-control {
   .footer {
     padding: 1rem;
   }
+}
+
+.post-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.like-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  color: var(--text-color);
+}
+
+.like-button:hover {
+  background-color: var(--hover-color);
+  transform: scale(1.05);
+}
+
+.like-button.liked {
+  color: var(--danger);
+}
+
+.like-button.liked:hover {
+  color: var(--danger-dark);
+}
+
+.like-icon {
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.like-button:hover .like-icon {
+  transform: scale(1.2);
+}
+
+.like-count {
+  font-size: 0.9rem;
+  min-width: 2rem;
+  text-align: left;
 } 
