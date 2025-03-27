@@ -20,6 +20,9 @@ O Tempero Compartilhado é uma aplicação web moderna que permite aos usuários
   - Exclusão de publicações com confirmação
   - Visualização de posts de outros usuários
   - Editor de texto rico para formatação
+  - Suporte a emojis no conteúdo
+  - Contador de caracteres
+  - Gradientes e efeitos visuais modernos
 
 - **Perfil do Usuário**
   - Edição completa do perfil
@@ -29,20 +32,22 @@ O Tempero Compartilhado é uma aplicação web moderna que permite aos usuários
   - Configurações da conta
 
 - **Interação**
-  - Comentários em publicações
-  - Sistema de curtidas
-  - Compartilhamento de receitas
-  - Feedback visual de interações
+  - Sistema de curtidas com feedback visual
+  - Comentários em publicações com emojis
+  - Expansão de seção de comentários
+  - Exclusão de comentários próprios
+  - Animações suaves nas interações
+  - Feedback visual em tempo real
 
 ## 🛠️ Tecnologias Utilizadas
 
 - **Frontend**
   - React.js 18
-  - Vite 4
-  - CSS Modules
+  - CSS Moderno com variáveis
   - React Router v6
   - Context API
   - Axios para requisições HTTP
+  - Animações CSS personalizadas
 
 - **Backend**
   - Node.js
@@ -63,15 +68,13 @@ O Tempero Compartilhado é uma aplicação web moderna que permite aos usuários
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/tempero-compartilhado.git
-cd tempero-compartilhado
+git clone https://github.com/ViniLSouza/blog-front.git
+cd blog-front/my-app
 ```
 
 2. Instale as dependências:
 ```bash
 npm install
-# ou
-yarn install
 ```
 
 3. Configure as variáveis de ambiente:
@@ -82,12 +85,8 @@ cp .env.example .env
 
 4. Inicie o servidor de desenvolvimento:
 ```bash
-npm run dev
-# ou
-yarn dev
+npm start
 ```
-
-5. Acesse a aplicação em `http://localhost:5173`
 
 ## 📁 Estrutura do Projeto
 
@@ -99,10 +98,8 @@ src/
 │   ├── Home/      # Página principal
 │   ├── Login/     # Autenticação
 │   ├── Cadastro/  # Registro
-│   ├── EditarPerfil/ # Edição de perfil
-│   └── CriarPost/ # Criação de posts
+│   └── EditarPerfil/ # Edição de perfil
 ├── services/      # Serviços e APIs
-├── utils/         # Funções utilitárias
 └── styles/        # Estilos globais
 ```
 
@@ -112,85 +109,35 @@ O projeto utiliza um design system consistente com as seguintes características
 
 - **Cores**
   - Primária: #FF6B6B
-  - Secundária: #4ECDC4
   - Fundo: #F8F9FA
   - Texto: #343A40
   - Erro: #DC3545
-  - Sucesso: #28A745
-  - Alerta: #FFC107
+  - Cinzas: variações para hierarquia visual
 
 - **Tipografia**
-  - Fonte Principal: Poppins
-  - Tamanhos: xs (12px), sm (14px), base (16px), lg (18px), xl (20px), 2xl (24px), 3xl (30px)
+  - Fonte Principal: Sistema padrão
+  - Tamanhos: xs (12px), sm (14px), base (16px), lg (18px), xl (20px)
 
 - **Espaçamento**
-  - Padding: 0.5rem, 1rem, 1.5rem, 2rem, 2.5rem
-  - Margin: 0.5rem, 1rem, 1.5rem, 2rem, 2.5rem
+  - Padding: 0.5rem, 1rem, 1.5rem, 2rem
+  - Margin: 0.5rem, 1rem, 1.5rem, 2rem
   - Gap: 0.5rem, 1rem, 1.5rem
 
 - **Bordas**
-  - Raio: 4px, 8px, 12px, 16px
+  - Raio: 4px, 8px, 12px
   - Espessura: 1px, 2px
   - Estados: normal, hover, focus, error
 
-## 🔒 Validações e Segurança
-
-- **Validação de Formulários**
-  - Campos obrigatórios
-  - Formato de email
-  - Força de senha (maiúsculas, minúsculas, números, caracteres especiais)
-  - Confirmação de senha
-  - Tamanho mínimo e máximo de campos
-  - Feedback visual de erros
-
-- **Segurança**
-  - Proteção contra XSS
-  - Autenticação via JWT
-  - Rotas protegidas
-  - Sanitização de inputs
-  - Confirmação de senha para alterações sensíveis
-  - Tokens de acesso com expiração
-
-## 📱 Responsividade
-
-O projeto é totalmente responsivo e se adapta aos seguintes breakpoints:
-
-- 📱 Mobile: < 600px
-  - Layout simplificado
-  - Menu hamburguer
-  - Cards em coluna única
-
-- 📱 Tablet: 600px - 960px
-  - Layout adaptativo
-  - Cards em duas colunas
-  - Menu expandido
-
-- 💻 Desktop: > 960px
-  - Layout completo
-  - Cards em três colunas
-  - Sidebar fixa
-
-## 🎨 Estilização
-
-- Uso de variáveis CSS para consistência
-- Animações suaves para melhor UX
-- Design moderno e limpo
-- Feedback visual para interações
-- Modais com overlay e animações
-- Indicadores de carregamento
-- Mensagens de sucesso/erro
-- Tooltips informativos
-
 ## 🔄 Atualizações Recentes
 
-### Versão 1.1.0
-- Adicionada página de edição de perfil
-- Implementado modal de confirmação de senha
-- Melhorada validação de formulários
-- Adicionado indicador de força de senha
-- Corrigidos bugs de autenticação
-- Melhorada a responsividade geral
-- Atualizada a documentação
+### Versão 1.2.0
+- Adicionado sistema de emojis nos comentários
+- Implementado gradientes nos cards de posts
+- Melhorada a interação com curtidas
+- Adicionada expansão de comentários
+- Aprimorada a estilização geral
+- Implementadas animações suaves
+- Melhorado o feedback visual das interações
 
 ---
 
