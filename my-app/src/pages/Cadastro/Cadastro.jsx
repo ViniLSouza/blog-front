@@ -1,3 +1,7 @@
+/**
+ * Página de cadastro do blog
+ * Permite que novos usuários criem suas contas
+ */
 import { useState } from "react"; 
 import { useAuth } from "../../contexts/AuthContext";
 import { validateCadastroForm } from "../../utils/validation";
@@ -5,8 +9,16 @@ import { formatTelefone } from "../../utils/formatters";
 import { VALIDATION } from "../../utils/constants";
 import "./Cadastro.css";
 
+/**
+ * Componente Cadastro
+ * @param {Object} props - Propriedades do componente
+ * @param {Function} props.navigate - Função de navegação do React Router
+ */
 const Cadastro = ({ navigate }) => {
+  // Hook de autenticação
   const { cadastrar } = useAuth();
+
+  // Estado do formulário
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
@@ -16,10 +28,15 @@ const Cadastro = ({ navigate }) => {
     bio: ""
   });
 
+  // Estados para controle de erros e submissão
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cadastroSucesso, setCadastroSucesso] = useState(false);
 
+  /**
+   * Manipula as mudanças nos campos do formulário
+   * @param {Event} e - Evento de mudança
+   */
   const handleChange = (e) => {
     const { name, value } = e.target;
     
@@ -40,9 +57,14 @@ const Cadastro = ({ navigate }) => {
     }
   };
 
+  /**
+   * Manipula o envio do formulário
+   * @param {Event} e - Evento de submit
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    // Valida os dados do formulário
     const errors = validateCadastroForm(formData);
     setFormErrors(errors);
     
@@ -89,13 +111,14 @@ const Cadastro = ({ navigate }) => {
     }
   };
 
+  // Renderiza a tela de sucesso após o cadastro
   if (cadastroSucesso) {
     return (
-      <div className="auth-wrapper">
-        <div className="container success-container">
+      <div className="cadastro-container">
+        <div className="success-container">
           <div className="success-icon">✓</div>
           <h2>Cadastro Realizado com Sucesso!</h2>
-          <p>Bem-vindo ao Blog Criativo! Sua conta foi criada e você já pode fazer login para começar a compartilhar suas histórias.</p>
+          <p>Bem-vindo ao Tempero Compartilhado! Sua conta foi criada e você já pode fazer login para começar a compartilhar suas receitas.</p>
           <div className="success-buttons">
             <button 
               onClick={() => navigate('/login')}
@@ -115,144 +138,164 @@ const Cadastro = ({ navigate }) => {
     );
   }
 
+  // Renderiza o formulário de cadastro
   return (
     <div className="cadastro-container">
-      <header className="header">
-        <div className="logo">
-          <span role="img" aria-label="blog icon">🌶️</span> Tempero Compartilhado
+      <div className="cadastro-card">
+        <div className="cadastro-header">
+          <div className="brand">
+            <span role="img" aria-label="pimenta">🌶️</span> Tempero Compartilhado
+          </div>
+          <h1>Criar Conta</h1>
+          <p>Junte-se à nossa comunidade de criadores de conteúdo</p>
         </div>
-      </header>
 
-      <main className="main-content">
+        {/* Mensagem de erro geral */}
+        {formErrors.submit && (
+          <div className="error-message">{formErrors.submit}</div>
+        )}
+
         <form className="cadastro-form" onSubmit={handleSubmit}>
-          <h2 className="form-title">Criar Conta</h2>
-          
+          {/* Campo de nome */}
           <div className="form-group">
-            <label htmlFor="nome">Nome</label>
+            <label htmlFor="nome">
+              Nome <span className="required-star">*</span>
+            </label>
             <input
               type="text"
               id="nome"
               name="nome"
+              className={`form-control ${formErrors.nome ? 'error' : ''}`}
               value={formData.nome}
               onChange={handleChange}
+              placeholder="Digite seu nome completo"
               required
             />
+            {formErrors.nome && <div className="field-error">{formErrors.nome}</div>}
           </div>
 
+          {/* Campo de email */}
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">
+              Email <span className="required-star">*</span>
+            </label>
             <input
               type="email"
               id="email"
               name="email"
+              className={`form-control ${formErrors.email ? 'error' : ''}`}
               value={formData.email}
               onChange={handleChange}
+              placeholder="exemplo@email.com"
               required
             />
+            {formErrors.email && <div className="field-error">{formErrors.email}</div>}
           </div>
 
+          {/* Campo de telefone */}
           <div className="form-group">
             <label htmlFor="telefone">Telefone</label>
             <input
               type="tel"
               id="telefone"
               name="telefone"
+              className={`form-control ${formErrors.telefone ? 'error' : ''}`}
               value={formData.telefone}
               onChange={handleChange}
               placeholder="(XX) XXXXX-XXXX"
               maxLength={VALIDATION.MAX_TELEFONE_LENGTH}
             />
-            {formErrors.telefone && <div className="input-error">{formErrors.telefone}</div>}
+            {formErrors.telefone && <div className="field-error">{formErrors.telefone}</div>}
           </div>
 
+          {/* Campo de senha */}
+          <div className="form-group">
+            <label htmlFor="senha">
+              Senha <span className="required-star">*</span>
+            </label>
+            <input
+              type="password"
+              id="senha"
+              name="senha"
+              className={`form-control ${formErrors.senha ? 'error' : ''}`}
+              value={formData.senha}
+              onChange={handleChange}
+              placeholder="Mínimo 8 caracteres"
+              required
+            />
+            {formErrors.senha && <div className="field-error">{formErrors.senha}</div>}
+            <div className="password-strength">
+              <div className="strength-bar">
+                <div className={`strength-bar-fill ${
+                  formData.senha.length === 0 ? '' :
+                  formData.senha.length < 8 ? 'weak' :
+                  formData.senha.length < 12 ? 'medium' : 'strong'
+                }`} />
+              </div>
+              <span className="strength-text">
+                {formData.senha.length === 0 ? 'Digite sua senha' :
+                 formData.senha.length < 8 ? 'Senha fraca' :
+                 formData.senha.length < 12 ? 'Senha média' : 'Senha forte'}
+              </span>
+            </div>
+          </div>
+
+          {/* Campo de confirmar senha */}
+          <div className="form-group">
+            <label htmlFor="confirmarSenha">
+              Confirmar Senha <span className="required-star">*</span>
+            </label>
+            <input
+              type="password"
+              id="confirmarSenha"
+              name="confirmarSenha"
+              className={`form-control ${formErrors.confirmarSenha ? 'error' : ''}`}
+              value={formData.confirmarSenha}
+              onChange={handleChange}
+              placeholder="Digite a senha novamente"
+              required
+            />
+            {formErrors.confirmarSenha && (
+              <div className="field-error">{formErrors.confirmarSenha}</div>
+            )}
+          </div>
+
+          {/* Campo de biografia */}
           <div className="form-group">
             <label htmlFor="bio">Sobre Você</label>
             <textarea
               id="bio"
               name="bio"
+              className={`form-control ${formErrors.bio ? 'error' : ''}`}
               value={formData.bio}
               onChange={handleChange}
-              placeholder="Conte um pouco sobre você, suas experiências e interesses no mundo da gastronomia..."
-              rows="4"
-              maxLength={VALIDATION.MAX_BIO_LENGTH}
+              placeholder="Conte um pouco sobre você..."
+              rows={4}
             />
-            <div className="bio-counter">
-              {formData.bio.length}/{VALIDATION.MAX_BIO_LENGTH} caracteres
-            </div>
-            {formErrors.bio && <div className="input-error">{formErrors.bio}</div>}
+            {formErrors.bio && <div className="field-error">{formErrors.bio}</div>}
           </div>
 
-          <div className="form-group">
-            <label htmlFor="senha">Senha</label>
-            <input
-              type="password"
-              id="senha"
-              name="senha"
-              value={formData.senha}
-              onChange={handleChange}
-              maxLength={VALIDATION.MAX_SENHA_LENGTH}
-              required
-            />
-            <div className="password-requirements">
-              <p>A senha deve conter:</p>
-              <ul>
-                <li className={formData.senha.length >= VALIDATION.MIN_SENHA_LENGTH ? 'fulfilled' : ''}>
-                  Pelo menos {VALIDATION.MIN_SENHA_LENGTH} caracteres
-                </li>
-                <li className={/[A-Z]/.test(formData.senha) ? 'fulfilled' : ''}>
-                  Uma letra maiúscula
-                </li>
-                <li className={/[a-z]/.test(formData.senha) ? 'fulfilled' : ''}>
-                  Uma letra minúscula
-                </li>
-                <li className={/[0-9]/.test(formData.senha) ? 'fulfilled' : ''}>
-                  Um número
-                </li>
-                <li className={/[@$!%*?&]/.test(formData.senha) ? 'fulfilled' : ''}>
-                  Um caractere especial (@$!%*?&)
-                </li>
-              </ul>
-            </div>
-            {formErrors.senha && <div className="input-error">{formErrors.senha}</div>}
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="confirmarSenha">Confirmar Senha</label>
-            <input
-              type="password"
-              id="confirmarSenha"
-              name="confirmarSenha"
-              value={formData.confirmarSenha}
-              onChange={handleChange}
-              required
-            />
-            <div className="password-match-requirements">
-              <ul>
-                <li className={formData.senha && formData.confirmarSenha && formData.senha === formData.confirmarSenha ? 'fulfilled' : ''}>
-                  Senhas iguais
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {formErrors.submit && <p className="error-message">{formErrors.submit}</p>}
-
-          <button type="submit" className="submit-button" disabled={isSubmitting}>
-            {isSubmitting ? "Cadastrando..." : "Cadastrar"}
+          {/* Botão de cadastro */}
+          <button
+            type="submit"
+            className="cadastro-button"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Cadastrando...' : 'Criar Conta'}
           </button>
-
-          <p className="login-link">
-            Já tem uma conta?{' '}
-            <a href="#" onClick={(e) => { e.preventDefault(); navigate('/login'); }}>
-              Faça login
-            </a>
-          </p>
         </form>
-      </main>
 
-      <footer className="footer">
-        <p>&copy; {new Date().getFullYear()} Tempero Compartilhado. Todos os direitos reservados.</p>
-      </footer>
+        {/* Link para login */}
+        <div className="login-link">
+          Já tem uma conta?
+          <a href="/login" onClick={(e) => {
+            e.preventDefault();
+            navigate('/login');
+          }}>
+            Fazer Login
+          </a>
+        </div>
+      </div>
     </div>
   );
 };

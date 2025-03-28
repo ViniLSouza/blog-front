@@ -3,6 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import Login from '../pages/Login/Login';
 import Cadastro from '../pages/Cadastro/Cadastro';
 import Home from '../pages/Home/Home';
+import CriarPost from '../pages/CriarPost/CriarPost';
 
 /**
  * Componente de roteamento simplificado
@@ -56,6 +57,8 @@ const Router = () => {
     switch (currentRoute) {
       case '/':
         return <Home navigate={navigate} />;
+      case '/criar-post':
+        return <CriarPost navigate={navigate} />;
       default:
         navigate('/');
         return null;
