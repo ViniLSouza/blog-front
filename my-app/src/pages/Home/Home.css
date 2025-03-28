@@ -229,17 +229,20 @@ textarea.form-control {
 }
 
 .post-card {
-  background-color: var(--white);
+  background: linear-gradient(to bottom right, var(--white), #fafafa);
   border-radius: var(--border-radius-lg);
-  box-shadow: var(--box-shadow);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 
+              0 1px 3px rgba(255, 107, 107, 0.1);
   padding: 1.5rem;
-  transition: transform var(--transition-fast);
-  border: 1px solid var(--grey-200);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 107, 107, 0.1);
 }
 
 .post-card:hover {
   transform: translateY(-2px);
-  box-shadow: var(--box-shadow-lg);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1),
+              0 2px 4px rgba(255, 107, 107, 0.2);
+  border-color: rgba(255, 107, 107, 0.2);
 }
 
 .post-header {
@@ -247,11 +250,14 @@ textarea.form-control {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 107, 107, 0.1);
 }
 
 .post-header span {
-  color: var(--grey-600);
+  color: var(--primary-color);
   font-size: var(--font-size-sm);
+  font-weight: 500;
 }
 
 .post-meta-right {
@@ -293,12 +299,13 @@ textarea.form-control {
 .post-title {
   font-size: var(--font-size-xl);
   font-weight: 600;
-  color: var(--black);
+  color: var(--primary-color);
   margin: 0.5rem 0;
+  transition: color 0.2s ease;
 }
 
 .post-content {
-  color: var(--grey-700);
+  color: var(--grey-800);
   line-height: 1.6;
   margin: 0.75rem 0;
   white-space: pre-wrap;
@@ -656,8 +663,8 @@ textarea.form-control {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border-top: 1px solid var(--grey-200);
-  background-color: var(--grey-100);
+  border-top: 1px solid rgba(255, 107, 107, 0.1);
+  background: linear-gradient(to right, #fff5f5, #fff8f8);
   margin-left: -1.5rem;
   margin-right: -1.5rem;
   padding: 0 1.5rem;
@@ -674,12 +681,13 @@ textarea.form-control {
   padding: 0.5rem;
   border-radius: 0.5rem;
   transition: all 0.2s ease;
-  color: var(--text-color);
+  color: var(--grey-600);
 }
 
 .like-button:hover {
-  background-color: var(--hover-color);
+  background-color: rgba(255, 107, 107, 0.1);
   transform: scale(1.05);
+  color: var(--primary-color);
 }
 
 .like-button.liked {
@@ -688,6 +696,7 @@ textarea.form-control {
 
 .like-button.liked:hover {
   color: var(--danger-dark);
+  background-color: rgba(255, 107, 107, 0.15);
 }
 
 .like-icon {
@@ -758,7 +767,7 @@ textarea.form-control {
 
 .novo-comentario .textarea-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-top: 0.25rem;
   padding: 0 0.25rem;

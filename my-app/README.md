@@ -20,7 +20,6 @@ O Tempero Compartilhado é uma aplicação web moderna que permite aos usuários
   - Exclusão de publicações com confirmação
   - Visualização de posts de outros usuários
   - Editor de texto rico para formatação
-  - Suporte a emojis no conteúdo
   - Contador de caracteres
   - Gradientes e efeitos visuais modernos
 
@@ -33,7 +32,7 @@ O Tempero Compartilhado é uma aplicação web moderna que permite aos usuários
 
 - **Interação**
   - Sistema de curtidas com feedback visual
-  - Comentários em publicações com emojis
+  - Comentários em publicações
   - Expansão de seção de comentários
   - Exclusão de comentários próprios
   - Animações suaves nas interações
@@ -131,7 +130,6 @@ O projeto utiliza um design system consistente com as seguintes características
 ## 🔄 Atualizações Recentes
 
 ### Versão 1.2.0
-- Adicionado sistema de emojis nos comentários
 - Implementado gradientes nos cards de posts
 - Melhorada a interação com curtidas
 - Adicionada expansão de comentários
